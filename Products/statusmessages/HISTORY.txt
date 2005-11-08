@@ -1,0 +1,9 @@
+Changelog for statusmessages
+
+   (name of developer listed in brackets)
+
+statusmessages 1.0 (unreleased)
+
+    - Initial implementation
+      [hannosch]
+
