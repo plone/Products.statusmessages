@@ -3,7 +3,7 @@ About statusmessages
 ====================
 
 statusmessages provides an easy to use way of handling status messages stored
-in the Session. It requires Zope >= 2.8
+in the request. It requires Zope >= 2.8
 
 - History in HISTORY.txt
 

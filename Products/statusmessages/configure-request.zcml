@@ -3,7 +3,7 @@
   <adapter
       for="zope.publisher.interfaces.browser.IBrowserRequest"
       provides=".interfaces.IStatusMessage"
-      factory=".statusmessage.SessionStatusMessage"
+      factory=".statusmessage.RequestStatusMessage"
       />
 
 </configure>
