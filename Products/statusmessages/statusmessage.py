@@ -118,27 +118,26 @@ class SessionStatusMessage(object):
     
     def __init__(self, context):
         self.context = context
-        self.session = context.SESSION
 
     def addStatusMessage(self, text, type=''):
         """Add a status message.
         """
         message = Message(text, type)
         
-        if self.session.has_key(STATUS_KEY):
-            self.session[STATUS_KEY].append(message)
+        if self.context.SESSION.has_key(STATUS_KEY):
+            self.context.SESSION.get(STATUS_KEY).append(message)
         else:
-            self.session.set(STATUS_KEY, [message])
+            self.context.SESSION.set(STATUS_KEY, [message])
 
     def getStatusMessages(self):
         """Returns all status messages.
         """
-        return self.session.get(STATUS_KEY)
+        return self.context.SESSION.get(STATUS_KEY)
 
     def clearStatusMessages(self):
         """Removes all status messages.
         """
-        self.session.set(STATUS_KEY, [])
+        self.context.SESSION.set(STATUS_KEY, [])
 
     def showStatusMessages(self):
         """Removes all status messages and returns them for display.

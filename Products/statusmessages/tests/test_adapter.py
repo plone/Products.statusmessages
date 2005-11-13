@@ -52,7 +52,7 @@ class TestStatusMessageRequestAdapter(ZopeTestCase.ZopeTestCase):
         placelesssetup.setUp()
         zcml.load_config('meta.zcml', Products.Five)
         zcml.load_config('configure.zcml', Products.statusmessages.tests)
-        zcml.load_config('configure-request.zcml', Products.statusmessages)
+        zcml.load_config('configure-request.zcml', Products.statusmessages.tests)
 
     def testAdapter(self):
         request = self.app.REQUEST

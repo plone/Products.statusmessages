@@ -2,8 +2,8 @@
 
   <adapter
       for="zope.publisher.interfaces.browser.IBrowserRequest"
-      provides=".interfaces.IStatusMessage"
-      factory=".statusmessage.RequestStatusMessage"
+      provides="Products.statusmessages.interfaces.IStatusMessage"
+      factory="Products.statusmessages.statusmessage.RequestStatusMessage"
       />
 
 </configure>

@@ -6,4 +6,10 @@
       factory=".statusmessage.SessionStatusMessage"
       />
 
+  <content class=".statusmessage.Message">
+    <allow
+        interface=".interfaces.IMessage"
+        />
+  </content>
+
 </configure>
