@@ -26,29 +26,32 @@ class StatusMessageUtility(object):
         """
         message = Message(text, type)
 
-        # XXX
-        browserid = 'user'
-        if global_messages.has_key(browserid):
-            global_messages[browserid].append(message)
+        bim = context.browser_id_manager
+        # This creates a new browserid if none is available
+        bid = bim.getBrowserId()
+
+        if global_messages.has_key(bid):
+            global_messages[bid].append(message)
         else:
-            global_messages[browserid] = [message]
+            global_messages[bid] = [message]
 
     def getStatusMessages(self, context):
         """Returns all status messages.
         """
-        # XXX
-        browserid = 'user'
-        if not global_messages.has_key(browserid):
-            return []
-        return global_messages.get(browserid)
+        bim = context.browser_id_manager
+        if bim.hasBrowserId():
+            bid = bim.getBrowserId()
+            return global_messages.get(bid, [])
+        return []
 
     def clearStatusMessages(self, context):
         """Removes all status messages.
         """
-        # XXX
-        browserid = 'user'
-        if global_messages.has_key(browserid):
-            global_messages[browserid] = []
+        bim = context.browser_id_manager
+        if bim.hasBrowserId():
+            bid = bim.getBrowserId()
+            if global_messages.has_key(bid):
+                global_messages[bid] = []
 
     def showStatusMessages(self, context):
         """Removes all status messages and returns them for display.

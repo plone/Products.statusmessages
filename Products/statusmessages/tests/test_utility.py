@@ -4,6 +4,11 @@ if __name__ == '__main__':
 
 from Testing import ZopeTestCase
 
+from Products.statusmessages.tests.utils import setupBrowserIdManager
+
+app = ZopeTestCase.app()
+setupBrowserIdManager(app)
+
 from zope.app import zapi
 from zope.app.tests import placelesssetup
 
@@ -26,25 +31,25 @@ class TestStatusMessageUtility(ZopeTestCase.ZopeTestCase):
 
     def testUtility(self):
         util = zapi.getUtility(IStatusMessageUtility)
-        request = self.app.REQUEST
+        context = self.app
         
-        util.addStatusMessage(request, 'test', type='info')
-        test = util.getStatusMessages(request)[0]
+        util.addStatusMessage(context, 'test', type='info')
+        test = util.getStatusMessages(context)[0]
         self.failUnless(test.message == 'test')
         self.failUnless(test.type == 'info')
 
-        util.addStatusMessage(request, 'test1', 'warn')
-        messages = util.showStatusMessages(request)
+        util.addStatusMessage(context, 'test1', 'warn')
+        messages = util.showStatusMessages(context)
         self.failUnless(len(messages)==2)
-        self.failUnless(len(util.getStatusMessages(request))==0)
+        self.failUnless(len(util.getStatusMessages(context))==0)
         test = messages[1]
         self.failUnless(test.message == 'test1')
         self.failUnless(test.type == 'warn')
         
-        util.addStatusMessage(request, 'test2', 'stop')
-        self.failUnless(len(util.getStatusMessages(request))==1)
-        util.clearStatusMessages(request)
-        self.failUnless(len(util.getStatusMessages(request))==0)
+        util.addStatusMessage(context, 'test2', 'stop')
+        self.failUnless(len(util.getStatusMessages(context))==1)
+        util.clearStatusMessages(context)
+        self.failUnless(len(util.getStatusMessages(context))==0)
 
     def beforeTearDown(self):
         placelesssetup.tearDown()
