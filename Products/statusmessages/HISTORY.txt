@@ -4,9 +4,6 @@ Changelog for statusmessages
 
 statusmessages 1.0 (unreleased)
 
-    - Reimplementation as an adapter, thx to philiKON's advice
-      [hannosch]
-
     - Initial implementation
       [hannosch]
 

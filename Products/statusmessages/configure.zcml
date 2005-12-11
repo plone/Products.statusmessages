@@ -1,12 +1,11 @@
 <configure xmlns="http://namespaces.zope.org/zope">
 
-  <adapter
-      for="zope.publisher.interfaces.browser.IBrowserRequest"
-      provides=".interfaces.IStatusMessage"
-      factory=".statusmessage.SessionStatusMessage"
+  <utility
+      provides=".interfaces.IStatusMessageUtility"
+      component=".utility.utility"
       />
 
-  <content class=".statusmessage.Message">
+  <content class=".message.Message">
     <allow
         interface=".interfaces.IMessage"
         />

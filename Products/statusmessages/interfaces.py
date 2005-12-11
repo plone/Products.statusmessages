@@ -1,29 +1,27 @@
 from zope.interface import Interface, Attribute
 
 class IMessage(Interface):
-    """A single status message.
-    """
+    """A single status message."""
 
     message = Attribute('The text of this message. Usally a Message object.')
 
     type = Attribute('The type of this message.')
 
 
-class IStatusMessage(Interface):
-    """A single status message.
-    """
+class IStatusMessageUtility(Interface):
+    """A utility for handling status messages."""
 
-    def addStatusMessage(text, type=''):
+    def addStatusMessage(context, text, type=''):
         """Add a status message."""
 
-    def getStatusMessages():
+    def getStatusMessages(context):
         """Returns all status messages.
         """
 
-    def clearStatusMessages():
+    def clearStatusMessages(context):
         """Removes all status messages."""
 
-    def showStatusMessages():
+    def showStatusMessages(context):
         """Removes all status messages and returns them for display.
         """
 

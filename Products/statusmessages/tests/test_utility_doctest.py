@@ -7,7 +7,8 @@ from Testing.ZopeTestCase import ZopeDocTestSuite
 
 def test_suite():
     return TestSuite((
-        ZopeDocTestSuite('Products.statusmessages.statusmessage'),
+        ZopeDocTestSuite('Products.statusmessages.utility'),
+        ZopeDocTestSuite('Products.statusmessages.message'),
     ))
 
 if __name__ == '__main__':
