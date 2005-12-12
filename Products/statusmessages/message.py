@@ -15,12 +15,12 @@ class Message:
       >>> verifyClass(IMessage, Message)
       True
     
-      >>> status = Message(u'this is a test', type='info')
+      >>> status = Message(u'this is a test', type=u'info')
       >>> status.message
       u'this is a test'
 
       >>> status.type
-      'info'
+      u'info'
 
     It is quite common to use MessageID's as status messages:
 
@@ -29,9 +29,9 @@ class Message:
 
       >>> msg = msg_factory(u'test_message', default=u'Default text')
 
-      >>> status = Message(msg, type='warn')
+      >>> status = Message(msg, type=u'warn')
       >>> status.type
-      'warn'
+      u'warn'
 
       >>> type(status.message) is MessageID
       True

@@ -33,20 +33,20 @@ class TestStatusMessageUtility(ZopeTestCase.ZopeTestCase):
         util = zapi.getUtility(IStatusMessageUtility)
         context = self.app
         
-        util.addStatusMessage(context, 'test', type='info')
+        util.addStatusMessage(context, u'test', type=u'info')
         test = util.getStatusMessages(context)[0]
-        self.failUnless(test.message == 'test')
-        self.failUnless(test.type == 'info')
+        self.failUnless(test.message == u'test')
+        self.failUnless(test.type == u'info')
 
-        util.addStatusMessage(context, 'test1', 'warn')
+        util.addStatusMessage(context, u'test1', u'warn')
         messages = util.showStatusMessages(context)
         self.failUnless(len(messages)==2)
         self.failUnless(len(util.getStatusMessages(context))==0)
         test = messages[1]
-        self.failUnless(test.message == 'test1')
-        self.failUnless(test.type == 'warn')
+        self.failUnless(test.message == u'test1')
+        self.failUnless(test.type == u'warn')
         
-        util.addStatusMessage(context, 'test2', 'stop')
+        util.addStatusMessage(context, u'test2', u'stop')
         self.failUnless(len(util.getStatusMessages(context))==1)
         util.clearStatusMessages(context)
         self.failUnless(len(util.getStatusMessages(context))==0)
