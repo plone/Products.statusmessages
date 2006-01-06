@@ -41,9 +41,6 @@ class StatusMessageUtility(object):
     Let's make sure that this implementation actually fulfills the
     'IStatusMessageUtility' API.
 
-      >>> from Products.statusmessages.interfaces import IStatusMessageUtility
-      >>> from Products.statusmessages.utility import StatusMessageUtility
-
       >>> from zope.interface.verify import verifyClass
       >>> verifyClass(IStatusMessageUtility, StatusMessageUtility)
       True

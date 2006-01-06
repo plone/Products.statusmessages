@@ -8,9 +8,6 @@ class Message:
     Let's make sure that this implementation actually fulfills the
     'IMessage' API.
 
-      >>> from Products.statusmessages.interfaces import IMessage
-      >>> from Products.statusmessages.message import Message
-
       >>> from zope.interface.verify import verifyClass
       >>> verifyClass(IMessage, Message)
       True

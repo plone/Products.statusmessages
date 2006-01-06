@@ -1,16 +1,16 @@
-import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
+"""
+    Status messages utility tests.
+"""
 
-from unittest import TestSuite
-from Testing.ZopeTestCase import ZopeDocTestSuite
+import unittest
+from zope.testing.doctestunit import DocTestSuite
 
 def test_suite():
-    return TestSuite((
-        ZopeDocTestSuite('Products.statusmessages.utility'),
-        ZopeDocTestSuite('Products.statusmessages.message'),
-    ))
+    return unittest.TestSuite((
+        DocTestSuite('Products.statusmessages.utility'),
+        DocTestSuite('Products.statusmessages.message'),
+        ))
 
 if __name__ == '__main__':
-    framework()
+    unittest.main(defaultTest="test_suite")
 
