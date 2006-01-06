@@ -34,22 +34,18 @@ class TestStatusMessageUtility(ZopeTestCase.ZopeTestCase):
         context = self.app
         
         util.addStatusMessage(context, u'test', type=u'info')
-        test = util.getStatusMessages(context)[0]
+        test = util.showStatusMessages(context)[0]
         self.failUnless(test.message == u'test')
         self.failUnless(test.type == u'info')
 
+        util.addStatusMessage(context, u'test', type=u'info')
         util.addStatusMessage(context, u'test1', u'warn')
         messages = util.showStatusMessages(context)
         self.failUnless(len(messages)==2)
-        self.failUnless(len(util.getStatusMessages(context))==0)
+        self.failUnless(len(util.showStatusMessages(context))==0)
         test = messages[1]
         self.failUnless(test.message == u'test1')
         self.failUnless(test.type == u'warn')
-        
-        util.addStatusMessage(context, u'test2', u'stop')
-        self.failUnless(len(util.getStatusMessages(context))==1)
-        util.clearStatusMessages(context)
-        self.failUnless(len(util.getStatusMessages(context))==0)
 
     def beforeTearDown(self):
         placelesssetup.tearDown()

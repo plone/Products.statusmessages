@@ -67,31 +67,17 @@ class StatusMessageUtility(object):
         else:
             _messages.set(bid, [message])
 
-    def getStatusMessages(self, context):
-        """Returns all status messages.
-        """
-        bim = context.browser_id_manager
-        if bim.hasBrowserId():
-            bid = bim.getBrowserId()
-            if _messages.has_key(bid):
-                return _messages.get(bid)
-        return []
-
-    def clearStatusMessages(self, context):
-        """Removes all status messages.
-        """
-        bim = context.browser_id_manager
-        if bim.hasBrowserId():
-            bid = bim.getBrowserId()
-            if _messages.has_key(bid):
-                _messages.set(bid, [])
-
     def showStatusMessages(self, context):
         """Removes all status messages and returns them for display.
         """
-        messages = self.getStatusMessages(context)
-        if messages is not []:
-            self.clearStatusMessages(context)
-        return messages
+        bim = context.browser_id_manager
+        msgs = []
+        if bim.hasBrowserId():
+            bid = bim.getBrowserId()
+            if _messages.has_key(bid):
+                msgs = _messages.get(bid)
+                if msgs is not []:
+                    _messages.set(bid, [])
+        return msgs
 
 utility = StatusMessageUtility()

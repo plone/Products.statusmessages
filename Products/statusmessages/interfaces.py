@@ -14,13 +14,6 @@ class IStatusMessageUtility(Interface):
     def addStatusMessage(context, text, type=''):
         """Add a status message."""
 
-    def getStatusMessages(context):
-        """Returns all status messages.
-        """
-
-    def clearStatusMessages(context):
-        """Removes all status messages."""
-
     def showStatusMessages(context):
         """Removes all status messages and returns them for display.
         """

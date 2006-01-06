@@ -1,5 +1,5 @@
   statusmessages provides a simply utility for status message handling
-  Copyright 2005 Hanno Schlichting
+  Copyright 2005-2006 Hanno Schlichting
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
