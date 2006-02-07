@@ -12,26 +12,41 @@ class ThreadSafeDict:
     """
     lock = threading.RLock()
 
-    def has_key(self, k):
+    def __getitem__(self, key):
         self.lock.acquire()
         try:
-            return _MESSAGES.has_key(k)
+            return _MESSAGES.get(key)
         finally:
             self.lock.release()
 
-    def get(self, k):
+    def __setitem__(self, key, value):
         self.lock.acquire()
         try:
-            return _MESSAGES.get(k)
+            _MESSAGES[key] = value
         finally:
             self.lock.release()
 
-    def set(self, k, v):
+    def __delitem__(self, key):
         self.lock.acquire()
         try:
-            _MESSAGES[k] = v
+            del(_MESSAGES[key])
         finally:
             self.lock.release()
+
+    def has_key(self, key):
+        self.lock.acquire()
+        try:
+            return _MESSAGES.has_key(key)
+        finally:
+            self.lock.release()
+
+    def setdefault(self, key, value=None):
+        self.lock.acquire()
+        try:
+            return _MESSAGES.setdefault(key, value)
+        finally:
+            self.lock.release()
+
 
 _messages = ThreadSafeDict()
 
@@ -44,7 +59,6 @@ class StatusMessageUtility(object):
       >>> from zope.interface.verify import verifyClass
       >>> verifyClass(IStatusMessageUtility, StatusMessageUtility)
       True
-
     """
     implements(IStatusMessageUtility)
 
@@ -57,24 +71,20 @@ class StatusMessageUtility(object):
         # This creates a new browserid if none is available
         bid = bim.getBrowserId()
 
-        if _messages.has_key(bid):
-            msgs = _messages.get(bid)
-            msgs.append(message)
-            _messages.set(bid, msgs)
-        else:
-            _messages.set(bid, [message])
+        msgs = _messages.setdefault(bid, [])
+        msgs.append(message)
+        _messages[bid] = msgs
 
     def showStatusMessages(self, context):
         """Removes all status messages and returns them for display.
         """
         bim = context.browser_id_manager
-        msgs = []
         if bim.hasBrowserId():
             bid = bim.getBrowserId()
             if _messages.has_key(bid):
-                msgs = _messages.get(bid)
-                if msgs is not []:
-                    _messages.set(bid, [])
-        return msgs
+                msgs = _messages[bid]
+                del(_messages[bid])
+                return msgs
+        return []
 
 utility = StatusMessageUtility()
