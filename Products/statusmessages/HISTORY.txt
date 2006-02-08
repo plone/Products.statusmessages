@@ -4,6 +4,9 @@ Changelog for statusmessages
 
 statusmessages 1.1 - Unreleased
 
+    - Added tests for ThreadSafeDict.
+      [hannosch]
+
     - Fixed serious memory leak and did some code improvements.
       [hannosch] [alecm]
 

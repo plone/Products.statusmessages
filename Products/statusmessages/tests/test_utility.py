@@ -15,7 +15,7 @@ from zope.app.tests import placelesssetup
 from Products.Five import zcml
 from Products.statusmessages.interfaces import IStatusMessageUtility
 from Products.statusmessages.message import Message
-from Products.statusmessages.utility import utility
+from Products.statusmessages.utility import utility, ThreadSafeDict
 import Products.statusmessages
 
 class TestStatusMessageUtility(ZopeTestCase.ZopeTestCase):
@@ -51,10 +51,39 @@ class TestStatusMessageUtility(ZopeTestCase.ZopeTestCase):
         placelesssetup.tearDown()
 
 
+class TestThreadSafeDict(ZopeTestCase.ZopeTestCase):
+
+    def afterSetUp(self):
+        self.d = ThreadSafeDict()
+
+    def testAddDelete(self):
+        self.failIf(self.d.has_key('test'))
+        self.d['test'] = 'testvalue'
+        self.failUnless(self.d['test'], 'testvalue')
+        self.failUnless(self.d.has_key('test'))
+
+        del(self.d['test'])
+        self.failIf(self.d.has_key('test'))
+
+    def testSetDefault(self):
+        self.failIf(self.d.has_key('test'))
+        value = self.d.setdefault('test', 'testvalue')
+        self.failUnless(value, 'testvalue')
+        self.failUnless(self.d['test'], 'testvalue')
+
+        value = self.d.setdefault('test', 'newvalue')
+        self.failUnless(value, 'testvalue')
+        self.failUnless(self.d['test'], 'testvalue')
+
+        del(self.d['test'])
+        self.failIf(self.d.has_key('test'))
+
+
 def test_suite():
     from unittest import TestSuite, makeSuite
     suite = TestSuite()
     suite.addTest(makeSuite(TestStatusMessageUtility))
+    suite.addTest(makeSuite(TestThreadSafeDict))
     return suite
 
 if __name__ == '__main__':
