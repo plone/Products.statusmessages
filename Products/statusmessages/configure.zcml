@@ -1,0 +1,14 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <utility
+      provides=".interfaces.IStatusMessageUtility"
+      component=".utility.utility"
+      />
+
+  <content class=".message.Message">
+    <allow
+        interface=".interfaces.IMessage"
+        />
+  </content>
+
+</configure>
