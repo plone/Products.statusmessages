@@ -2,7 +2,7 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
-statusmessages 1.1 - Unreleased
+statusmessages 1.1 - Released February 13, 2006
 
     - Added tests for ThreadSafeDict.
       [hannosch]
