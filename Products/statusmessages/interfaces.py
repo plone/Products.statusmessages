@@ -8,13 +8,13 @@ class IMessage(Interface):
     type = Attribute('The type of this message.')
 
 
-class IStatusMessageUtility(Interface):
-    """A utility for handling status messages."""
+class IStatusMessage(Interface):
+    """An adapter for the BrowserRequest to handle status messages."""
 
-    def addStatusMessage(context, text, type=''):
+    def addStatusMessage(text, type=''):
         """Add a status message."""
 
-    def showStatusMessages(context):
+    def showStatusMessages():
         """Removes all status messages and returns them for display.
         """
 

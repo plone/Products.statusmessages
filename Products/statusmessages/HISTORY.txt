@@ -2,6 +2,16 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
+statusmessages 2.0 - Unreleased
+
+    - Total reimplementation using cookies instead of a server-side in-memory
+      storage to store status messages. The reasoning behind this change is that
+      the former approach didn't play well with web caching strategies and added
+      an additional burden in ZEO environments (having to use load-balancers,
+      which are able to identify users and keep them connected to the same ZEO
+      server).
+      [hannosch]
+
 statusmessages 1.1 - Released February 13, 2006
 
     - Added tests for ThreadSafeDict.

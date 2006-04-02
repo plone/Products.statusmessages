@@ -3,7 +3,8 @@ About statusmessages
 ====================
 
 statusmessages provides an easy way of handling internationalized status
-messages managed via a global utility. It requires Zope >= 2.8.
+messages managed via an BrowserRequest adapter storing status messages in
+client-side cookies. It requires Zope >= 2.8.
 
 It is quite common to write status messages which should be shown to the user
 after some action. These messages of course should be internationalized. As
@@ -18,22 +19,9 @@ problems it also isn't possible to i18n-ize these in the common way, as the URL
 is currently limited to the ASCII charset, but an encoding providing support for
 the full unicode range is required.
 
-The solution provided by this tool is to use a session like approach. But as
-sessions tend to be quite ressource intense, a simpler implementation has been
-choosen. The two main differences to full sessions are, that status messages
-don't need to be persisted and they live only for the duration of one
-request/reponse pair.
-
-In contrast to sessions this utility therfore does not implement any aging
-capabilities but deletes all status messages once there are shown. For user
-identification the implementation currently relies on the BrowserIdManager from
-Zope2's sessions module and in effect does not run natively on Zope3.
-
-Status messages are kept in a in-memory module-scope dict with a wrapper around
-it making it thread-safe. In a ZEO environment this means, that you might have
-to use an intelligent load-balancer to keep users talking to the same ZEO
-instance all the time or you might get some funny effects where status messages
-are not shown at first, but might pop-up at a later time.
+The solution provided by this module is to store the status messages inside a
+cookie. In version 1.x a server side session like storage has been used, but
+this turned out not to be caching friendly for the usual web caching strategies.
 
 - History in HISTORY.txt
 

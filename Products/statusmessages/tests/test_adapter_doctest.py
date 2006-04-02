@@ -1,13 +1,13 @@
 """
-    Status messages utility tests.
+    Status messages tests.
 """
 
-import unittest
+from unittest import TestSuite
 from zope.testing.doctestunit import DocTestSuite
 
 def test_suite():
-    return unittest.TestSuite((
-        DocTestSuite('Products.statusmessages.utility'),
+    return TestSuite((
+        DocTestSuite('Products.statusmessages.adapter'),
         DocTestSuite('Products.statusmessages.message'),
         ))
 

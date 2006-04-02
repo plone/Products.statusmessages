@@ -1,8 +1,10 @@
-<configure xmlns="http://namespaces.zope.org/zope">
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five">
 
-  <utility
-      provides=".interfaces.IStatusMessageUtility"
-      component=".utility.utility"
+  <adapter
+      for="zope.publisher.interfaces.browser.IBrowserRequest"
+      provides=".interfaces.IStatusMessage"
+      factory=".adapter.StatusMessage"
       />
 
   <content class=".message.Message">
