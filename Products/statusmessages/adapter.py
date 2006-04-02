@@ -1,10 +1,15 @@
 from base64 import encodestring, decodestring
 from pickle import dumps, loads
+import sys
+
 from zope.interface import implements
 
 from Products.statusmessages import STATUSMESSAGEKEY
 from Products.statusmessages.message import Message
 from Products.statusmessages.interfaces import IStatusMessage
+
+import logging
+logger = logging.getLogger('statusmessages')
 
 class StatusMessage(object):
     """Adapter for the BrowserRequest to handle status messages.
@@ -20,25 +25,23 @@ class StatusMessage(object):
 
     def __init__(self, context):
         self.context = context # the context must be the request
-        self.cookies = self.context.RESPONSE.cookies
 
     def addStatusMessage(self, text, type=''):
         """Add a status message.
         """
-        value = _encodeCookieValue(text, type,
-                                   old=self.cookies.get(STATUSMESSAGEKEY))
+        value = _encodeCookieValue(text, type, old=self.context.cookies.get(STATUSMESSAGEKEY))
         self.context.RESPONSE.setCookie(STATUSMESSAGEKEY, value)
 
     def showStatusMessages(self):
         """Removes all status messages and returns them for display.
         """
-        value = self.cookies.get(STATUSMESSAGEKEY)
+        value = self.context.cookies.get(STATUSMESSAGEKEY)
         if value is None:
             return []
-        value = value.copy()
+        value = _decodeCookieValue(value)
         # clear the existing cookie entries
-        self.context.RESPONSE.setCookie(STATUSMESSAGEKEY, None)
-        return _decodeCookieValue(value)
+        self.context.RESPONSE.expireCookie(STATUSMESSAGEKEY)
+        return value
 
 def _encodeCookieValue(text, type, old=None):
     """Encodes text and type to a list of Messages. If there is already some old
@@ -50,7 +53,8 @@ def _encodeCookieValue(text, type, old=None):
     if old is not None:
         results = _decodeCookieValue(old)
     results.append(message)
-    return encodestring(dumps(results))
+    # we have to remove any newlines or the cookie value will be invalid
+    return encodestring(dumps(results)).replace('\n','')
 
 def _decodeCookieValue(string):
     """Decode a cookie value to a list of Messages.
@@ -58,9 +62,17 @@ def _decodeCookieValue(string):
        contains anything else, it will be ignored for security reasons.
     """
     results = []
+    # Return nothing if the cookie is marked as deleted
+    if string == 'deleted':
+        return results
+    # Try to decode the cookie value
     try:
-        values = loads(decodestring(string['value']))
+        values = loads(decodestring(string))
     except: # If there's anything unexpected in the string ignore it
+        logger.log(logging.ERROR, '%s \n%s',
+                   'Unexpected value in statusmessages cookie',
+                   sys.exc_value
+                   )
         return []
     if type(values) is list: # simple security check
         for value in values:
