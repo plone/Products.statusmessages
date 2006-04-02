@@ -29,20 +29,30 @@ class TestStatusMessage(ZopeTestCase.ZopeTestCase):
         request = self.app.REQUEST
         status = IStatusMessage(request)
 
+        # make sure there's no stored message
+        self.assertEqual(len(status.showStatusMessages()), 0)
+
+        # add one message
         status.addStatusMessage(u'test', type=u'info')
         messages = status.showStatusMessages()
         self.failUnless(len(messages)==1)
         self.failUnless(messages[0].message == u'test')
         self.failUnless(messages[0].type == u'info')
 
+        # make sure messages are removed
+        self.assertEqual(len(status.showStatusMessages()), 0)
+
+        # add two messages
         status.addStatusMessage(u'test', type=u'info')
         status.addStatusMessage(u'test1', u'warn')
         messages = status.showStatusMessages()
         self.failUnless(len(messages)==2)
-        self.failUnless(len(status.showStatusMessages())==0)
         test = messages[1]
         self.failUnless(test.message == u'test1')
         self.failUnless(test.type == u'warn')
+
+        # make sure messages are removed again
+        self.failUnless(len(status.showStatusMessages())==0)
 
     def beforeTearDown(self):
         placelesssetup.tearDown()
