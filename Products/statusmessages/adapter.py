@@ -33,10 +33,10 @@ class StatusMessage(object):
         """Removes all status messages and returns them for display.
         """
         value = self.cookies.get(STATUSMESSAGEKEY)
-        # clear the existing cookie entries
         if value is None:
             return []
         value = value.copy()
+        # clear the existing cookie entries
         self.context.RESPONSE.setCookie(STATUSMESSAGEKEY, None)
         return _decodeCookieValue(value)
 

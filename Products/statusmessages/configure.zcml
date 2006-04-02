@@ -1,5 +1,4 @@
-<configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:five="http://namespaces.zope.org/five">
+<configure xmlns="http://namespaces.zope.org/zope">
 
   <adapter
       for="zope.publisher.interfaces.browser.IBrowserRequest"
@@ -8,9 +7,7 @@
       />
 
   <content class=".message.Message">
-    <allow
-        interface=".interfaces.IMessage"
-        />
+    <allow interface=".interfaces.IMessage" />
   </content>
 
 </configure>
