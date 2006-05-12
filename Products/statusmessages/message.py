@@ -21,8 +21,9 @@ class Message:
 
     It is quite common to use MessageID's as status messages:
 
-      >>> from zope.i18nmessageid import MessageIDFactory, MessageID
-      >>> msg_factory = MessageIDFactory('test')
+      >>> from zope.i18nmessageid import MessageFactory
+      >>> from zope.i18nmessageid import Message as I18NMessage
+      >>> msg_factory = MessageFactory('test')
 
       >>> msg = msg_factory(u'test_message', default=u'Default text')
 
@@ -30,7 +31,7 @@ class Message:
       >>> status.type
       u'warn'
 
-      >>> type(status.message) is MessageID
+      >>> type(status.message) is I18NMessage
       True
 
       >>> status.message.default

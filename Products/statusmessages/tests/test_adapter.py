@@ -2,66 +2,112 @@ import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
-from Testing import ZopeTestCase
-
-from zope.app import zapi
-from zope.app.tests import placelesssetup
-
-from Products.Five import zcml
-from Products.statusmessages.interfaces import IStatusMessage
 from Products.statusmessages.message import Message
 from Products.statusmessages.adapter import StatusMessage
-import Products.statusmessages, Products.statusmessages.tests
 
-class TestStatusMessage(ZopeTestCase.ZopeTestCase):
+def test_directives():
+    """
+    Test status messages
 
-    def afterSetUp(self):
-        placelesssetup.setUp()
-        zcml.load_config('meta.zcml', Products.Five)
-        zcml.load_config('configure.zcml', Products.statusmessages.tests)
-        zcml.load_config('configure.zcml', Products.statusmessages)
+    First some boilerplate.
 
-    def testAdapterLookup(self):
-        status = IStatusMessage(self.app.REQUEST)
-        self.failUnless(IStatusMessage.providedBy(status))
+      >>> from zope.component.testing import setUp
+      >>> setUp()
 
-    def testAdapter(self):
-        request = self.app.REQUEST
-        status = IStatusMessage(request)
+      >>> import Products.Five
+      >>> import Products.statusmessages
+      >>> import Products.statusmessages.tests
 
-        # make sure there's no stored message
-        self.assertEqual(len(status.showStatusMessages()), 0)
+      >>> from Products.Five import zcml
+      >>> zcml.load_config('meta.zcml', Products.Five)
+      >>> zcml.load_config('configure.zcml', Products.statusmessages)
+      >>> zcml.load_config('configure.zcml', Products.statusmessages.tests)
 
-        # add one message
-        status.addStatusMessage(u'test', type=u'info')
-        messages = status.showStatusMessages()
-        self.failUnless(len(messages)==1)
-        self.failUnless(messages[0].message == u'test')
-        self.failUnless(messages[0].type == u'info')
+    Now lets make sure we can actually adapt the request.
 
-        # make sure messages are removed
-        self.assertEqual(len(status.showStatusMessages()), 0)
+      >>> from Products.statusmessages.interfaces import IStatusMessage
+      >>> status = IStatusMessage(self.app.REQUEST)
+      >>> IStatusMessage.providedBy(status)
+      True
 
-        # add two messages
-        status.addStatusMessage(u'test', type=u'info')
-        status.addStatusMessage(u'test1', u'warn')
-        messages = status.showStatusMessages()
-        self.failUnless(len(messages)==2)
-        test = messages[1]
-        self.failUnless(test.message == u'test1')
-        self.failUnless(test.type == u'warn')
+    The dummy request we have is a bit limited, so we need a simple method
+    to fake a real request/response for the cookie handling. Basically it
+    puts all entries from RESPONSE.cookies into REQUEST.cookies but shifts
+    the real values into the right place as browsers would do it.
+      
+      >>> def fakePublish(request):
+      ...     cookies = request.RESPONSE.cookies.copy()
+      ...     new_cookies = {}
+      ...     for key in cookies.keys():
+      ...         new_cookies[key] = cookies[key]['value']
+      ...     request.cookies = new_cookies
+      ...     request.RESPONSE.cookies = {}
 
-        # make sure messages are removed again
-        self.failUnless(len(status.showStatusMessages())==0)
+      >>> request = self.app.REQUEST
+      >>> status = IStatusMessage(request)
 
-    def beforeTearDown(self):
-        placelesssetup.tearDown()
+    Make sure there's no stored message.
+
+      >>> len(status.showStatusMessages())
+      0
+
+    Add one message
+      
+      >>> status.addStatusMessage(u'test', type=u'info')
+
+    Now check the results
+
+      >>> fakePublish(request)
+      >>> messages = status.showStatusMessages()
+
+      >>> len(messages)
+      1
+
+      >>> messages[0].message
+      u'test'
+
+      >>> messages[0].type
+      u'info'
+
+    Make sure messages are removed
+
+      >>> len(status.showStatusMessages())
+      0
+
+    Add two messages
+
+      >>> status.addStatusMessage(u'test', type=u'info')
+      >>> fakePublish(request)
+      >>> status.addStatusMessage(u'test1', u'warn')
+      
+    And check the results again
+
+      >>> fakePublish(request)
+      >>> messages = status.showStatusMessages()
+
+      >>> len(messages)
+      2
+
+      >>> test = messages[1]
+
+      >>> test.message
+      u'test1'
+
+      >>> test.type
+      u'warn'
+
+    Finally make sure messages are removed again
+
+      >>> len(status.showStatusMessages())
+      0
+
+      >>> from zope.component.testing import tearDown
+      >>> tearDown()
+    """
 
 def test_suite():
-    from unittest import TestSuite, makeSuite
-    suite = TestSuite()
-    suite.addTest(makeSuite(TestStatusMessage))
-    return suite
+    from Testing.ZopeTestCase import ZopeDocTestSuite
+    return ZopeDocTestSuite()
 
 if __name__ == '__main__':
     framework()
