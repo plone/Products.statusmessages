@@ -2,7 +2,7 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
-statusmessages 2.0 - Unreleased
+statusmessages 2.0 - Released May 15, 2006
 
     - Total reimplementation using cookies instead of a server-side in-memory
       storage to store status messages. The reasoning behind this change is that
