@@ -1,6 +1,9 @@
-import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
+# -*- coding: UTF-8 -*-
+"""
+    StatusMessage adapter tests.
+"""
+
+import unittest
 
 from Products.statusmessages.message import Message
 from Products.statusmessages.adapter import StatusMessage
@@ -59,7 +62,6 @@ def test_directives():
 
       >>> fakePublish(request)
       >>> messages = status.showStatusMessages()
-
       >>> len(messages)
       1
 
@@ -84,7 +86,6 @@ def test_directives():
 
       >>> fakePublish(request)
       >>> messages = status.showStatusMessages()
-
       >>> len(messages)
       2
 
@@ -110,5 +111,4 @@ def test_suite():
     return ZopeDocTestSuite()
 
 if __name__ == '__main__':
-    framework()
-
+    unittest.main(defaultTest="test_suite")

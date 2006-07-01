@@ -2,6 +2,14 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
+statusmessages 2.1 - Unreleased
+
+    - Updated test infrastructure, removed custom testrunner.
+      [hannosch]
+
+    - Fixed deprecation warning for the zcml content directive.
+      [hannosch]
+
 statusmessages 2.0 - Released May 15, 2006
 
     - Total reimplementation using cookies instead of a server-side in-memory

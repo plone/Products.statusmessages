@@ -6,8 +6,8 @@
       factory=".adapter.StatusMessage"
       />
 
-  <content class=".message.Message">
-    <allow interface=".interfaces.IMessage" />
-  </content>
+  <class class=".message.Message">
+      <allow interface=".interfaces.IMessage" />
+  </class>
 
 </configure>
