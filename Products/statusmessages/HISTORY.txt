@@ -2,7 +2,7 @@ Changelog for statusmessages
 
     (name of developer listed in brackets)
 
-statusmessages 2.0.1 - Unreleased
+statusmessages 2.0.1 - Released September 9, 2006
 
     - Minor cosmetic updates to the tests, removed custom testrunner.
       [hannosch]
