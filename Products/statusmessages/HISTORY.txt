@@ -4,6 +4,9 @@ Changelog for statusmessages
 
 statusmessages 2.0.1 - Unreleased
 
+    - Minor cosmetic updates to the tests, removed custom testrunner.
+      [hannosch]
+
     - Fixed a bug where statusmessages wouldn't show up for forms that used a
       traversed_to method to get to the next page. Thx to jlagarde for the fix.
       This closes http://dev.plone.org/plone/ticket/5766.

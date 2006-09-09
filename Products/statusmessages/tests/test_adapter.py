@@ -1,6 +1,8 @@
-import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
+"""
+    Status messages adapter tests.
+"""
+
+import unittest
 
 from Products.statusmessages.message import Message
 from Products.statusmessages.adapter import StatusMessage
@@ -110,5 +112,4 @@ def test_suite():
     return ZopeDocTestSuite()
 
 if __name__ == '__main__':
-    framework()
-
+    unittest.main(defaultTest="test_suite")
