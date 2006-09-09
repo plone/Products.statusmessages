@@ -1,6 +1,13 @@
 Changelog for statusmessages
 
-   (name of developer listed in brackets)
+    (name of developer listed in brackets)
+
+statusmessages 2.0.1 - Unreleased
+
+    - Fixed a bug where statusmessages wouldn't show up for forms that used a
+      traversed_to method to get to the next page. Thx to jlagarde for the fix.
+      This closes http://dev.plone.org/plone/ticket/5766.
+      [hannosch]
 
 statusmessages 2.0 - Released May 15, 2006
 

@@ -30,6 +30,7 @@ class StatusMessage(object):
         """Add a status message.
         """
         value = _encodeCookieValue(text, type, old=self.context.cookies.get(STATUSMESSAGEKEY))
+        self.context.cookies[STATUSMESSAGEKEY] = value
         self.context.RESPONSE.setCookie(STATUSMESSAGEKEY, value, path='/')
 
     def showStatusMessages(self):
