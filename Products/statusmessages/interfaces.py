@@ -17,4 +17,3 @@ class IStatusMessage(Interface):
     def showStatusMessages():
         """Removes all status messages and returns them for display.
         """
-

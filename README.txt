@@ -23,9 +23,8 @@ The solution provided by this module is to store the status messages inside a
 cookie. In version 1.x a server side session like storage has been used, but
 this turned out not to be caching friendly for the usual web caching strategies.
 
-- History in HISTORY.txt
+- History in docs/HISTORY.txt
 
-- License terms in LICENSE.txt
+- License terms in docs/LICENSE.txt
 
 Read more at http://plone.org/products/statusmessages
-
