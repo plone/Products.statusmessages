@@ -1,4 +1,6 @@
-<configure xmlns="http://namespaces.zope.org/zope">
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five">
 
   <adapter
       for="zope.publisher.interfaces.browser.IBrowserRequest"
@@ -9,5 +11,9 @@
   <class class=".message.Message">
       <allow interface=".interfaces.IMessage" />
   </class>
+
+  <five:registerPackage
+      package="."
+      initialize=".initialize" />
 
 </configure>
