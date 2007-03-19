@@ -60,7 +60,6 @@ def test_directives():
 
     Now check the results
 
-      >>> fakePublish(request)
       >>> messages = status.showStatusMessages()
       >>> len(messages)
       1
@@ -76,7 +75,66 @@ def test_directives():
       >>> len(status.showStatusMessages())
       0
 
-    Add two messages
+    Since we accessed the message prior to publishing the page, we must 
+    ensure that the messages have been removed from the cookies
+
+      >>> fakePublish(request)
+      >>> len(status.showStatusMessages())
+      0
+
+    Now we repeat the test, only this time we publish the page prior to
+    retrieving the messages
+
+    Add one message
+      
+      >>> status.addStatusMessage(u'test', type=u'info')
+
+    Publish the request
+
+      >>> fakePublish(request)
+
+    Now check the results
+
+      >>> messages = status.showStatusMessages()
+      >>> len(messages)
+      1
+
+      >>> messages[0].message
+      u'test'
+
+      >>> messages[0].type
+      u'info'
+
+    Make sure messages are removed
+
+      >>> len(status.showStatusMessages())
+      0
+
+    Add two messages (without publishing)
+
+      >>> status.addStatusMessage(u'test', type=u'info')
+      >>> status.addStatusMessage(u'test1', u'warn')
+      
+    And check the results again
+
+      >>> messages = status.showStatusMessages()
+      >>> len(messages)
+      2
+
+      >>> test = messages[1]
+
+      >>> test.message
+      u'test1'
+
+      >>> test.type
+      u'warn'
+
+    Make sure messages are removed again
+
+      >>> len(status.showStatusMessages())
+      0
+
+    Add two messages (with publishing)
 
       >>> status.addStatusMessage(u'test', type=u'info')
       >>> fakePublish(request)
@@ -97,7 +155,7 @@ def test_directives():
       >>> test.type
       u'warn'
 
-    Finally make sure messages are removed again
+    Make sure messages are removed again
 
       >>> len(status.showStatusMessages())
       0
