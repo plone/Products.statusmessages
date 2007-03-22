@@ -9,6 +9,11 @@ statusmessages 3.0b2 - Unreleased
       http://dev.plone.org/plone/ticket/6109.
       [hannosch]
 
+    - Added 's support for statusmessages without a redirect. This uses
+      annotations on the request instead of direct values, so we avoid the
+      possibility of sneaking those in via query strings.
+      [tomster, hannosch]
+
 statusmessages 3.0b1 - Released March 5, 2007
 
     - Converted to a package in the Products namespace.
