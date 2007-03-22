@@ -2,6 +2,13 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
+statusmessages 3.0b2 - Unreleased
+
+    - Fixed duplicate message bug. Showing identical messages to the end user
+      more than once, doesn't make any sense. This closes
+      http://dev.plone.org/plone/ticket/6109.
+      [hannosch]
+
 statusmessages 3.0b1 - Released March 5, 2007
 
     - Converted to a package in the Products namespace.
