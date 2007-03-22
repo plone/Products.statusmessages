@@ -46,3 +46,10 @@ class Message:
     def __init__(self, message, type=''):
         self.message = message
         self.type = type
+
+    def __eq__(self, other):
+        if not isinstance(other, Message):
+            return False
+        if self.message == other.message and self.type == other.type:
+            return True
+        return False

@@ -160,6 +160,31 @@ def test_directives():
       >>> len(status.showStatusMessages())
       0
 
+    Add two identical messages
+
+      >>> status.addStatusMessage(u'test', type=u'info')
+      >>> status.addStatusMessage(u'test', type=u'info')
+
+    And check the results again
+
+      >>> fakePublish(request)
+      >>> messages = status.showStatusMessages()
+      >>> len(messages)
+      1
+
+      >>> test = messages[0]
+
+      >>> test.message
+      u'test'
+
+      >>> test.type
+      u'info'
+
+    Make sure messages are removed again
+
+      >>> len(status.showStatusMessages())
+      0
+
       >>> from zope.component.testing import tearDown
       >>> tearDown()
     """

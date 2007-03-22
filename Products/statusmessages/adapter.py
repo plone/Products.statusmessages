@@ -31,7 +31,8 @@ class StatusMessage(object):
         """Add a status message.
         """
         text = translate(text, context=self.context)
-        value = _encodeCookieValue(text, type, old=self.context.get(STATUSMESSAGEKEY, self.context.cookies.get(STATUSMESSAGEKEY)))
+        old = self.context.get(STATUSMESSAGEKEY, self.context.cookies.get(STATUSMESSAGEKEY))
+        value = _encodeCookieValue(text, type, old=old)
         self.context.RESPONSE.setCookie(STATUSMESSAGEKEY, value, path='/')
         self.context.set(STATUSMESSAGEKEY, value)
 
@@ -52,14 +53,16 @@ class StatusMessage(object):
 
 def _encodeCookieValue(text, type, old=None):
     """Encodes text and type to a list of Messages. If there is already some old
-       existing list, add the new Message at the end.
+       existing list, add the new Message at the end but don't add duplicate
+       messages.
     """
     results = []
     message = Message(text, type=type)
 
     if old is not None:
         results = _decodeCookieValue(old)
-    results.append(message)
+    if not message in results:
+        results.append(message)
     # we have to remove any newlines or the cookie value will be invalid
     return encodestring(dumps(results)).replace('\n','')
 
