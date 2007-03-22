@@ -6,4 +6,6 @@
                    interface="zope.publisher.interfaces.browser.IBrowserRequest"
                    />
 
+  <include package="zope.annotation" />
+
 </configure>

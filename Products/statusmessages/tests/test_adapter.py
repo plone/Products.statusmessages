@@ -33,6 +33,12 @@ def test_directives():
       >>> IStatusMessage.providedBy(status)
       True
 
+    We also need the request to be annotatable:
+
+      >>> from zope.interface import directlyProvides
+      >>> from zope.annotation.interfaces import IAttributeAnnotatable
+      >>> directlyProvides(self.app.REQUEST, IAttributeAnnotatable)
+
     The dummy request we have is a bit limited, so we need a simple method
     to fake a real request/response for the cookie handling. Basically it
     puts all entries from RESPONSE.cookies into REQUEST.cookies but shifts

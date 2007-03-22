@@ -2,6 +2,7 @@ from base64 import encodestring, decodestring
 from pickle import dumps, loads
 import sys
 
+from zope.annotation.interfaces import IAnnotations
 from zope.i18n import translate
 from zope.interface import implements
 
@@ -31,24 +32,25 @@ class StatusMessage(object):
         """Add a status message.
         """
         text = translate(text, context=self.context)
-        old = self.context.get(STATUSMESSAGEKEY, self.context.cookies.get(STATUSMESSAGEKEY))
+        annotations = IAnnotations(self.context)
+
+        old = annotations.get(STATUSMESSAGEKEY, self.context.cookies.get(STATUSMESSAGEKEY))
         value = _encodeCookieValue(text, type, old=old)
         self.context.RESPONSE.setCookie(STATUSMESSAGEKEY, value, path='/')
-        self.context.set(STATUSMESSAGEKEY, value)
+        annotations[STATUSMESSAGEKEY] = value
 
     def showStatusMessages(self):
         """Removes all status messages and returns them for display.
         """
-        value = self.context.get(STATUSMESSAGEKEY, self.context.cookies.get(STATUSMESSAGEKEY))
+        annotations = IAnnotations(self.context)
+        value = annotations.get(STATUSMESSAGEKEY, self.context.cookies.get(STATUSMESSAGEKEY))
         if value is None:
             return []
         value = _decodeCookieValue(value)
         # clear the existing cookie entries
-        if self.context.cookies.has_key(STATUSMESSAGEKEY):
-            self.context.cookies[STATUSMESSAGEKEY] = None
+        self.context.cookies[STATUSMESSAGEKEY] = None
         self.context.RESPONSE.expireCookie(STATUSMESSAGEKEY, path='/')
-        if self.context.has_key(STATUSMESSAGEKEY):
-            self.context.set(STATUSMESSAGEKEY, None)
+        annotations[STATUSMESSAGEKEY] = None
         return value
 
 def _encodeCookieValue(text, type, old=None):
