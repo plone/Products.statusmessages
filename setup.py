@@ -30,7 +30,4 @@ setup(name='Products.statusmessages',
       install_requires=[
         'setuptools',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
 )

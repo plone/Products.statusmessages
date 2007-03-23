@@ -2,7 +2,7 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
-statusmessages 3.0b2 - Unreleased
+statusmessages 3.0b2 - Released March 23, 2007
 
     - Fixed duplicate message bug. Showing identical messages to the end user
       more than once, doesn't make any sense. This closes
