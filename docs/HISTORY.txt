@@ -2,6 +2,11 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
+statusmessages 3.0rc1 - Released July 10, 2007
+
+    - Removed useless setup.cfg.
+      [hannosch]
+
 statusmessages 3.0b2 - Released March 23, 2007
 
     - Fixed duplicate message bug. Showing identical messages to the end user
