@@ -19,12 +19,10 @@ def test_directives():
 
       >>> import Products.Five
       >>> import Products.statusmessages
-      >>> import Products.statusmessages.tests
 
       >>> from Products.Five import zcml
       >>> zcml.load_config('meta.zcml', Products.Five)
       >>> zcml.load_config('configure.zcml', Products.statusmessages)
-      >>> zcml.load_config('configure.zcml', Products.statusmessages.tests)
 
     Now lets make sure we can actually adapt the request.
 
