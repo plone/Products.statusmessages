@@ -10,4 +10,10 @@
       <allow interface=".interfaces.IMessage" />
   </class>
 
+  <!-- We need to make the request annotatable for this to work -->
+
+  <class class="ZPublisher.BaseRequest.BaseRequest">
+      <implements interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+  </class>
+
 </configure>

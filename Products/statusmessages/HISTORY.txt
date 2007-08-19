@@ -2,6 +2,12 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
+statusmessages 3.0.1 - Unreleased
+
+    - Added the IAttributeAnnotatable interface assignment for the request
+      to this package, as we rely on it.
+      [hannosch]
+
 statusmessages 3.0 - Released August 9, 2007
 
     - No changes.
