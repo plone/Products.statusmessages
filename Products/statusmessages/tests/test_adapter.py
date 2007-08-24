@@ -5,9 +5,6 @@
 
 import unittest
 
-from Products.statusmessages.message import Message
-from Products.statusmessages.adapter import StatusMessage
-
 def test_directives():
     """
     Test status messages

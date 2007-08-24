@@ -2,6 +2,7 @@
     Status messages tests.
 """
 
+import unittest
 from unittest import TestSuite
 from zope.testing.doctestunit import DocTestSuite
 
