@@ -2,7 +2,7 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
-statusmessages 3.0.1 - Unreleased
+statusmessages 3.0.1 - Released October 7, 2007
 
     - Added the IAttributeAnnotatable interface assignment for the request
       to this package as well as the inclusion of the zope.annotation, as we
