@@ -1,0 +1,45 @@
+Changelog for statusmessages
+
+    (name of developer listed in brackets)
+
+statusmessages 2.0.2 - Unreleased
+
+    - Fixed encoding format for the cookie value. The former format imposed
+      a serious security risk. The full security issue is tracked at:
+      http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5741.
+      This also fixes http://dev.plone.org/plone/ticket/6943.
+      [hannosch, witsch, mj]
+
+statusmessages 2.0.1 - Released September 9, 2006
+
+    - Minor cosmetic updates to the tests, removed custom testrunner.
+      [hannosch]
+
+    - Fixed a bug where statusmessages wouldn't show up for forms that used a
+      traversed_to method to get to the next page. Thx to jlagarde for the fix.
+      This closes http://dev.plone.org/plone/ticket/5766.
+      [hannosch]
+
+statusmessages 2.0 - Released May 15, 2006
+
+    - Total reimplementation using cookies instead of a server-side in-memory
+      storage to store status messages. The reasoning behind this change is that
+      the former approach didn't play well with web caching strategies and added
+      an additional burden in ZEO environments (having to use load-balancers,
+      which are able to identify users and keep them connected to the same ZEO
+      server).
+      [hannosch]
+
+statusmessages 1.1 - Released February 13, 2006
+
+    - Added tests for ThreadSafeDict.
+      [hannosch]
+
+    - Fixed serious memory leak and did some code improvements.
+      [hannosch] [alecm]
+
+statusmessages 1.0 - Released January 26, 2006
+
+    - Initial implementation
+      [hannosch]
+
