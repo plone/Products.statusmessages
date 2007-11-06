@@ -2,7 +2,7 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
-statusmessages 3.0.2 - Unreleased
+statusmessages 3.0.2 - Released November 6, 2007
 
     - Fixed encoding format for the cookie value. The former format imposed
       a serious security risk. The full security issue is tracked at:

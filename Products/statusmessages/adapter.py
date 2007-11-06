@@ -73,8 +73,6 @@ def _encodeCookieValue(text, type, old=None):
 
 def _decodeCookieValue(string):
     """Decode a cookie value to a list of Messages.
-       The value has to be a base64 encoded pickle of a list of Messages. If it
-       contains anything else, it will be ignored for security reasons.
     """
     results = []
     # Return nothing if the cookie is marked as deleted
