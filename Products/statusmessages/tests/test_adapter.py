@@ -186,6 +186,25 @@ def test_directives():
       >>> len(status.showStatusMessages())
       0
 
+    Test incredibly long messages:
+
+      >>> status.addStatusMessage(u'm' * 0x400, type=u't' * 0x20)
+
+      And check the results again
+
+      >>> fakePublish(request)
+      >>> messages = status.showStatusMessages()
+      >>> len(messages)
+      1
+
+      >>> test = messages[0]
+
+      >>> test.message == u'm' * 0x3FF
+      True
+
+      >>> test.type == u't' * 0x1F
+      True
+
       >>> from zope.component.testing import tearDown
       >>> tearDown()
     """

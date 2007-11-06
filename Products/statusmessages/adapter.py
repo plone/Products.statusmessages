@@ -1,5 +1,5 @@
 from base64 import encodestring, decodestring
-from pickle import dumps, loads
+import binascii
 import sys
 
 from zope.annotation.interfaces import IAnnotations
@@ -7,6 +7,7 @@ from zope.i18n import translate
 from zope.interface import implements
 
 from Products.statusmessages import STATUSMESSAGEKEY
+from Products.statusmessages.message import decode
 from Products.statusmessages.message import Message
 from Products.statusmessages.interfaces import IStatusMessage
 
@@ -53,6 +54,7 @@ class StatusMessage(object):
         annotations[STATUSMESSAGEKEY] = None
         return value
 
+
 def _encodeCookieValue(text, type, old=None):
     """Encodes text and type to a list of Messages. If there is already some old
        existing list, add the new Message at the end but don't add duplicate
@@ -65,8 +67,9 @@ def _encodeCookieValue(text, type, old=None):
         results = _decodeCookieValue(old)
     if not message in results:
         results.append(message)
-    # we have to remove any newlines or the cookie value will be invalid
-    return encodestring(dumps(results)).replace('\n','')
+
+    messages = ''.join([r.encode() for r in results])
+    return encodestring(messages).rstrip()
 
 def _decodeCookieValue(string):
     """Decode a cookie value to a list of Messages.
@@ -79,15 +82,16 @@ def _decodeCookieValue(string):
         return results
     # Try to decode the cookie value
     try:
-        values = loads(decodestring(string))
-    except: # If there's anything unexpected in the string ignore it
+        value = decodestring(string)
+        while len(value) > 1: # at least 2 bytes of data
+            message, value = decode(value)
+            if message is not None:
+                results.append(message)
+    except (binascii.Error, UnicodeEncodeError):
         logger.log(logging.ERROR, '%s \n%s',
                    'Unexpected value in statusmessages cookie',
                    sys.exc_value
                    )
         return []
-    if isinstance(values, list): # simple security check
-        for value in values:
-            if isinstance(value, Message): # and another simple check
-                results.append(value)
+
     return results

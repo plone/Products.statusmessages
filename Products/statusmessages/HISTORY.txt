@@ -2,6 +2,14 @@ Changelog for statusmessages
 
    (name of developer listed in brackets)
 
+statusmessages 3.0.2 - Unreleased
+
+    - Fixed encoding format for the cookie value. The former format imposed
+      a serious security risk. The full security issue is tracked at:
+      http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5741.
+      This also fixes http://dev.plone.org/plone/ticket/6943.
+      [hannosch, witsch, mj]
+
 statusmessages 3.0.1 - Released October 7, 2007
 
     - Added the IAttributeAnnotatable interface assignment for the request
