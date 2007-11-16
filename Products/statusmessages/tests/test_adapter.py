@@ -204,6 +204,17 @@ def test_directives():
 
       >>> test.type == u't' * 0x1F
       True
+      
+    Messages are stored as base64-ed cookie values, so we must make sure we
+    create proper header values; all ascii characters, and no newlines:
+    
+      >>> status.addStatusMessage(u'test' * 40, type=u'info')
+      >>> cookies = [c['value'] for c in request.RESPONSE.cookies.values()]
+      >>> cookies = ''.join(cookies)
+      >>> cookies == unicode(cookies).encode('ASCII')
+      True
+      >>> '\\n' in cookies
+      False
 
       >>> from zope.component.testing import tearDown
       >>> tearDown()

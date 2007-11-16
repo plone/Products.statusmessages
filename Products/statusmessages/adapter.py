@@ -1,4 +1,3 @@
-from base64 import encodestring, decodestring
 import binascii
 import sys
 
@@ -69,7 +68,7 @@ def _encodeCookieValue(text, type, old=None):
         results.append(message)
 
     messages = ''.join([r.encode() for r in results])
-    return encodestring(messages).rstrip()
+    return binascii.b2a_base64(messages).rstrip()
 
 def _decodeCookieValue(string):
     """Decode a cookie value to a list of Messages.
@@ -80,7 +79,7 @@ def _decodeCookieValue(string):
         return results
     # Try to decode the cookie value
     try:
-        value = decodestring(string)
+        value = binascii.a2b_base64(string)
         while len(value) > 1: # at least 2 bytes of data
             message, value = decode(value)
             if message is not None:
