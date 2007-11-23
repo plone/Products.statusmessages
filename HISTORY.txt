@@ -2,11 +2,14 @@ Changelog for statusmessages
 
     (name of developer listed in brackets)
 
-statusmessages 2.0.3 - Unreleased
+statusmessages 2.0.3 - Released November 23, 2007
 
     - Made automatic translation logic more robust in presence of Five
       BrowserViews.
       [hannosch]
+
+    - Merge r53993 from trunk, fix for tickets #7323 and #7325.
+      [mj]
 
 statusmessages 2.0.2 - Released November 6, 2007
 
