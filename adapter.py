@@ -39,7 +39,7 @@ class StatusMessage(object):
         if HAS_GTS:
             gts = getGlobalTranslationService()
             parents = getattr(self.context, 'PARENTS', None)
-            aq_context = parents is not None and parents[0] or None
+            aq_context = parents is not None and parents[-1] or None
             text = gts.translate(None, text, context=aq_context)
 
         value = _encodeCookieValue(text, type, old=self.context.cookies.get(STATUSMESSAGEKEY))
