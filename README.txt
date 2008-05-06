@@ -1,5 +1,5 @@
-About statusmessages
-====================
+Introduction
+============
 
 statusmessages provides an easy way of handling internationalized status
 messages managed via an BrowserRequest adapter storing status messages in
