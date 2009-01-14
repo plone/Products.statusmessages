@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import sys, os
 
 version = '3.0.4'
 
@@ -20,14 +19,22 @@ setup(name='Products.statusmessages',
       keywords='Zope CMF Plone status messages i18n',
       author='Hanno Schlichting',
       author_email='plone-developers@lists.sourceforge.net',
-      url='http://svn.plone.org/svn/collective/statusmessages/trunk',
+      url='http://plone.org/products/statusmessages',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],
       include_package_data=True,
       zip_safe=False,
-      download_url='http://plone.org/products/statusmessages/releases',
+      extras_require=dict(
+        test=[
+            'zope.component',
+        ]
+      ),
       install_requires=[
         'setuptools',
+        'zope.annotation',
+        'zope.i18n',
+        'zope.interface',
+        # 'Zope2',
       ],
 )
