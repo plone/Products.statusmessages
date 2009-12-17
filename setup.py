@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '4.0a1'
+version = '4.0a2'
 
 setup(name='Products.statusmessages',
       version=version,
