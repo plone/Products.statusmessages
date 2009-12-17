@@ -4,7 +4,11 @@ Changelog
 4.0 - Unreleased
 ----------------
 
-- This version depends on Zope2 2.12+.
+- Removed a five:implements statement, as the ZPublisher.HTTPRequest is always
+  an IBrowserRequest in Zope 2.12.
+  [hannosch]
+
+- This version depends on Zope 2.12+.
   [hannosch]
 
 - Package metadata cleanup.

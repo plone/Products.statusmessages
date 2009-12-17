@@ -1,5 +1,4 @@
-<configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:five="http://namespaces.zope.org/five">
+<configure xmlns="http://namespaces.zope.org/zope">
 
   <adapter
       for="zope.publisher.interfaces.browser.IBrowserRequest"
@@ -18,8 +17,5 @@
   <class class="ZPublisher.BaseRequest.BaseRequest">
     <implements interface="zope.annotation.interfaces.IAttributeAnnotatable" />
   </class>
-
-  <five:implements class="ZPublisher.HTTPRequest.HTTPRequest"
-    interface="zope.publisher.interfaces.browser.IBrowserRequest" />
 
 </configure>
