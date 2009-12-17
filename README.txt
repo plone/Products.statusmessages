@@ -8,9 +8,9 @@ client-side cookies.
 It is quite common to write status messages which should be shown to the user
 after some action. These messages of course should be internationalized. As
 these messages normally are defined in Python code, the common way to i18n-ize
-these in Zope is to use Zope3 Messages. Messages are complex objects consisting
-of a translation domain and a default unicode text and might have an additional
-mapping dict and a distinct id.
+these in Zope is to use zope.i18n Messages. Messages are complex objects
+consisting of a translation domain and a default unicode text and might have an
+additional mapping dict and a distinct id.
 
 The usual way to provide status messages in CMF/Plone has been to add a
 "?portal_status_messages=some%20text" to the URL. While this has some usability

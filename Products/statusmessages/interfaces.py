@@ -14,6 +14,12 @@ class IStatusMessage(Interface):
     def addStatusMessage(text, type=''):
         """Add a status message."""
 
+    def add(text, type=''):
+        """Add a status message."""
+
     def showStatusMessages():
+        """Removes all status messages and returns them for display.
+        """
+    def show():
         """Removes all status messages and returns them for display.
         """

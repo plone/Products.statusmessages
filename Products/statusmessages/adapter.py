@@ -1,5 +1,4 @@
 import binascii
-import sys
 
 from zope.annotation.interfaces import IAnnotations
 from zope.i18n import translate
@@ -28,30 +27,38 @@ class StatusMessage(object):
     def __init__(self, context):
         self.context = context # the context must be the request
 
-    def addStatusMessage(self, text, type=''):
+    def add(self, text, type=''):
         """Add a status message.
         """
-        text = translate(text, context=self.context)
-        annotations = IAnnotations(self.context)
+        context = self.context
+        text = translate(text, context=context)
+        annotations = IAnnotations(context)
 
-        old = annotations.get(STATUSMESSAGEKEY, self.context.cookies.get(STATUSMESSAGEKEY))
+        old = annotations.get(STATUSMESSAGEKEY,
+                              context.cookies.get(STATUSMESSAGEKEY))
         value = _encodeCookieValue(text, type, old=old)
-        self.context.RESPONSE.setCookie(STATUSMESSAGEKEY, value, path='/')
+        context.response.setCookie(STATUSMESSAGEKEY, value, path='/')
         annotations[STATUSMESSAGEKEY] = value
 
-    def showStatusMessages(self):
+    def show(self):
         """Removes all status messages and returns them for display.
         """
-        annotations = IAnnotations(self.context)
-        value = annotations.get(STATUSMESSAGEKEY, self.context.cookies.get(STATUSMESSAGEKEY))
+        context = self.context
+        annotations = IAnnotations(context)
+        value = annotations.get(STATUSMESSAGEKEY,
+                                context.cookies.get(STATUSMESSAGEKEY))
         if value is None:
             return []
         value = _decodeCookieValue(value)
         # clear the existing cookie entries
-        self.context.cookies[STATUSMESSAGEKEY] = None
-        self.context.RESPONSE.expireCookie(STATUSMESSAGEKEY, path='/')
+        context.cookies[STATUSMESSAGEKEY] = None
+        context.response.expireCookie(STATUSMESSAGEKEY, path='/')
         annotations[STATUSMESSAGEKEY] = None
         return value
+
+    # BBB
+    addStatusMessage = add
+    showStatusMessages = show
 
 
 def _encodeCookieValue(text, type, old=None):
@@ -85,10 +92,7 @@ def _decodeCookieValue(string):
             if message is not None:
                 results.append(message)
     except (binascii.Error, UnicodeEncodeError):
-        logger.log(logging.ERROR, '%s \n%s',
-                   'Unexpected value in statusmessages cookie',
-                   sys.exc_value
-                   )
+        logger.exception('Unexpected value in statusmessages cookie')
         return []
 
     return results

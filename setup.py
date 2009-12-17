@@ -28,6 +28,7 @@ setup(name='Products.statusmessages',
       extras_require=dict(
         test=[
             'zope.component',
+            'Zope2',
         ]
       ),
       install_requires=[
@@ -35,6 +36,5 @@ setup(name='Products.statusmessages',
         'zope.annotation',
         'zope.i18n',
         'zope.interface',
-        'Zope2',
       ],
 )

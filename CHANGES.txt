@@ -4,6 +4,13 @@ Changelog
 4.0 - Unreleased
 ----------------
 
+- Simplified the interface to use simpler add/show method names while keeping
+  backwards compatibility.
+  [hannosch]
+
+- More code simplification. Make the code itself independent of Zope2.
+  [hannosch]
+
 - Removed a five:implements statement, as the ZPublisher.HTTPRequest is always
   an IBrowserRequest in Zope 2.12.
   [hannosch]

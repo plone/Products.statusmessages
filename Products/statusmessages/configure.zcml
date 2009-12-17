@@ -1,4 +1,5 @@
-<configure xmlns="http://namespaces.zope.org/zope">
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
 
   <adapter
       for="zope.publisher.interfaces.browser.IBrowserRequest"
@@ -12,10 +13,14 @@
 
   <!-- We need to make the request annotatable for this to work -->
 
-  <include package="zope.annotation" />
+  <configure zcml:condition="installed ZPublisher">
 
-  <class class="ZPublisher.BaseRequest.BaseRequest">
-    <implements interface="zope.annotation.interfaces.IAttributeAnnotatable" />
-  </class>
+    <include package="zope.annotation" />
+
+    <class class="ZPublisher.BaseRequest.BaseRequest">
+      <implements interface="zope.annotation.interfaces.IAttributeAnnotatable" />
+    </class>
+
+  </configure>
 
 </configure>
