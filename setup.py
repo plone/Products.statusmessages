@@ -1,15 +1,15 @@
 from setuptools import setup, find_packages
 
-version = '3.0.4'
+version = '4.0'
 
 setup(name='Products.statusmessages',
       version=version,
       description="statusmessages provides an easy way of handling "
                   "internationalized status messages managed via an "
                   "BrowserRequest adapter storing status messages in "
-                  "client-side cookies. It requires Zope >= 2.10.",
-      long_description="""\
-      """,
+                  "client-side cookies.",
+      long_description=open("README.txt").read() + "\n" +
+                       open("CHANGES.txt").read(),
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
@@ -19,8 +19,8 @@ setup(name='Products.statusmessages',
       keywords='Zope CMF Plone status messages i18n',
       author='Hanno Schlichting',
       author_email='plone-developers@lists.sourceforge.net',
-      url='http://plone.org/products/statusmessages',
-      license='GPL',
+      url='http://pypi.python.org/pypi/Products.statusmessages',
+      license='BSD',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],
       include_package_data=True,
@@ -35,6 +35,6 @@ setup(name='Products.statusmessages',
         'zope.annotation',
         'zope.i18n',
         'zope.interface',
-        # 'Zope2',
+        'Zope2',
       ],
 )

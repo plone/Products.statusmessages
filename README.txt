@@ -3,11 +3,11 @@ Introduction
 
 statusmessages provides an easy way of handling internationalized status
 messages managed via an BrowserRequest adapter storing status messages in
-client-side cookies. It requires Zope >= 2.10.
+client-side cookies.
 
 It is quite common to write status messages which should be shown to the user
 after some action. These messages of course should be internationalized. As
-these messages normally are definied in Python code, the common way to i18n-ize
+these messages normally are defined in Python code, the common way to i18n-ize
 these in Zope is to use Zope3 Messages. Messages are complex objects consisting
 of a translation domain and a default unicode text and might have an additional
 mapping dict and a distinct id.
@@ -21,9 +21,3 @@ the full unicode range is required.
 The solution provided by this module is to store the status messages inside a
 cookie. In version 1.x a server side session like storage has been used, but
 this turned out not to be caching friendly for the usual web caching strategies.
-
-- History in docs/HISTORY.txt
-
-- License terms in docs/LICENSE.txt
-
-Read more at http://plone.org/products/statusmessages
