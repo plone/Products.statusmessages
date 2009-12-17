@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.0 - Unreleased
-----------------
+4.0a1 - 2009-12-17
+------------------
 
 - Simplified the interface to use simpler add/show method names while keeping
   backwards compatibility.
