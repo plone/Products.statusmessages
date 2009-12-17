@@ -27,7 +27,7 @@ class StatusMessage(object):
     def __init__(self, context):
         self.context = context # the context must be the request
 
-    def add(self, text, type=''):
+    def add(self, text, type=u'info'):
         """Add a status message.
         """
         context = self.context

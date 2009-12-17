@@ -4,6 +4,8 @@ Changelog
 4.0a2 - Unreleased
 ------------------
 
+- Changed the default type of a new message from the empty string to info.
+  [hannosch]
 
 4.0a1 - 2009-12-17
 ------------------

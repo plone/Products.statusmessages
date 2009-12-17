@@ -11,10 +11,10 @@ class IMessage(Interface):
 class IStatusMessage(Interface):
     """An adapter for the BrowserRequest to handle status messages."""
 
-    def addStatusMessage(text, type=''):
+    def addStatusMessage(text, type=u'info'):
         """Add a status message."""
 
-    def add(text, type=''):
+    def add(text, type=u'info'):
         """Add a status message."""
 
     def showStatusMessages():
