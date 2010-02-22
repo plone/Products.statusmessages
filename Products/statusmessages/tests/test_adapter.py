@@ -220,6 +220,93 @@ def test_directives():
       >>> tearDown()
     """
 
+def test_301():
+    """
+    Test status messages for 301/302/304 request
+
+    First some boilerplate.
+
+      >>> from zope.component.testing import setUp
+      >>> setUp()
+
+      >>> import Products.Five
+      >>> import Products.statusmessages
+
+      >>> from Products.Five import zcml
+      >>> zcml.load_config('meta.zcml', Products.Five)
+      >>> zcml.load_config('configure.zcml', Products.statusmessages)
+
+      >>> from zope.interface import directlyProvides
+      >>> from zope.annotation.interfaces import IAttributeAnnotatable
+      >>> directlyProvides(self.app.REQUEST, IAttributeAnnotatable)
+      
+      >>> from Products.statusmessages.interfaces import IStatusMessage
+
+      >>> def fakePublish(request, status=200):
+      ...     cookies = request.response.cookies.copy()
+      ...     new_cookies = {}
+      ...     for key in cookies.keys():
+      ...         new_cookies[key] = cookies[key]['value']
+      ...     request.cookies = new_cookies
+      ...     request.response.cookies = {}
+      ...     request.response.setStatus(status)
+
+      >>> request = self.app.REQUEST
+      >>> status = IStatusMessage(request)
+
+    Make sure there's no stored message.
+
+      >>> len(status.show())
+      0
+
+    Add one message
+      
+      >>> status.add(u'test', type=u'info')
+
+    Publish a redirect response that also happened to call show(). This could
+    happen if the redirect (unnecessarily) rendered a template showing the
+    status message, for example.
+    
+      >>> fakePublish(request, 302)
+      >>> messages = status.show()
+      >>> len(messages)
+      1
+
+      >>> messages[0].message
+      u'test'
+
+      >>> messages[0].type
+      u'info'
+
+    Make sure messages are not removed - we really want them to show the
+    next time around, when the redirect has completed.
+
+      >>> len(status.show())
+      1
+
+    Let's now fake redirection. The message should still be there, but will
+    then be expired.
+    
+      >>> fakePublish(request, 200)
+      >>> messages = status.show()
+      >>> len(messages)
+      1
+
+      >>> messages[0].message
+      u'test'
+
+      >>> messages[0].type
+      u'info'
+    
+    The message should now be gone.
+      
+      >>> len(status.show())
+      0
+
+      >>> from zope.component.testing import tearDown
+      >>> tearDown()
+    """
+
 def test_suite():
     from Testing.ZopeTestCase import ZopeDocTestSuite
     return ZopeDocTestSuite()

@@ -50,12 +50,18 @@ class StatusMessage(object):
         if value is None:
             return []
         value = _decodeCookieValue(value)
-        # clear the existing cookie entries
-        context.cookies[STATUSMESSAGEKEY] = None
-        context.response.expireCookie(STATUSMESSAGEKEY, path='/')
-        annotations[STATUSMESSAGEKEY] = None
+        
+        # clear the existing cookie entries, except on responses that don't
+        # actually render in the browser (really, these shouldn't render
+        # anything so we shouldn't get to this message, but some templates
+        # are sloppy).
+        if self.context.response.getStatus() not in (301, 302, 304):
+            context.cookies[STATUSMESSAGEKEY] = None
+            context.response.expireCookie(STATUSMESSAGEKEY, path='/')
+            annotations[STATUSMESSAGEKEY] = None
+        
         return value
-
+    
     # BBB
     addStatusMessage = add
     showStatusMessages = show
