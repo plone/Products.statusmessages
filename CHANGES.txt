@@ -1,13 +1,13 @@
 Changelog
 =========
 
-4.0a3 - unreleased
+4.0b1 - 2010-03-01
 ------------------
 
-- Stopped the cookie from being expired if a redirect (301, 302) or
-  not-modified (304) response is sent. This means that if you set a redirect
-  and then (superfluously) render a template that would show the status
-  message, you won't lose the message.
+- Stopped the cookie from being expired if a redirect (301, 302) or not-modified
+  (304) response is sent. This means that if you set a redirect and then
+  (superfluously) render a template that would show the status message, you
+  won't lose the message.
   [optilude]
 
 4.0a2 - 2009-12-17
