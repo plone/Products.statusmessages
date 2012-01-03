@@ -14,7 +14,7 @@ logger = logging.getLogger('statusmessages')
 
 class StatusMessage(object):
     """Adapter for the BrowserRequest to handle status messages.
-    
+
     Let's make sure that this implementation actually fulfills the
     'IStatusMessage' API.
 
@@ -50,7 +50,7 @@ class StatusMessage(object):
         if value is None:
             return []
         value = _decodeCookieValue(value)
-        
+
         # clear the existing cookie entries, except on responses that don't
         # actually render in the browser (really, these shouldn't render
         # anything so we shouldn't get to this message, but some templates
@@ -59,9 +59,9 @@ class StatusMessage(object):
             context.cookies[STATUSMESSAGEKEY] = None
             context.response.expireCookie(STATUSMESSAGEKEY, path='/')
             annotations[STATUSMESSAGEKEY] = None
-        
+
         return value
-    
+
     # BBB
     addStatusMessage = add
     showStatusMessages = show

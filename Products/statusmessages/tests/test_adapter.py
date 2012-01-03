@@ -38,7 +38,7 @@ def test_directives():
     to fake a real request/response for the cookie handling. Basically it
     puts all entries from response.cookies into REQUEST.cookies but shifts
     the real values into the right place as browsers would do it.
-      
+
       >>> def fakePublish(request):
       ...     cookies = request.response.cookies.copy()
       ...     new_cookies = {}
@@ -56,7 +56,7 @@ def test_directives():
       0
 
     Add one message
-      
+
       >>> status.add(u'test', type=u'info')
 
     Now check the results
@@ -76,7 +76,7 @@ def test_directives():
       >>> len(status.show())
       0
 
-    Since we accessed the message prior to publishing the page, we must 
+    Since we accessed the message prior to publishing the page, we must
     ensure that the messages have been removed from the cookies
 
       >>> fakePublish(request)
@@ -87,7 +87,7 @@ def test_directives():
     retrieving the messages
 
     Add one message
-      
+
       >>> status.add(u'test', type=u'info')
 
     Publish the request
@@ -115,7 +115,7 @@ def test_directives():
 
       >>> status.add(u'test', type=u'info')
       >>> status.add(u'test1', u'warn')
-      
+
     And check the results again
 
       >>> messages = status.show()
@@ -140,7 +140,7 @@ def test_directives():
       >>> status.add(u'test', type=u'info')
       >>> fakePublish(request)
       >>> status.add(u'test1', u'warn')
-      
+
     And check the results again
 
       >>> fakePublish(request)
@@ -204,10 +204,10 @@ def test_directives():
 
       >>> test.type == u't' * 0x1F
       True
-      
+
     Messages are stored as base64-ed cookie values, so we must make sure we
     create proper header values; all ascii characters, and no newlines:
-    
+
       >>> status.add(u'test' * 40, type=u'info')
       >>> cookies = [c['value'] for c in request.response.cookies.values()]
       >>> cookies = ''.join(cookies)
@@ -239,7 +239,7 @@ def test_301():
       >>> from zope.interface import directlyProvides
       >>> from zope.annotation.interfaces import IAttributeAnnotatable
       >>> directlyProvides(self.app.REQUEST, IAttributeAnnotatable)
-      
+
       >>> from Products.statusmessages.interfaces import IStatusMessage
 
       >>> def fakePublish(request, status=200):
@@ -260,13 +260,13 @@ def test_301():
       0
 
     Add one message
-      
+
       >>> status.add(u'test', type=u'info')
 
     Publish a redirect response that also happened to call show(). This could
     happen if the redirect (unnecessarily) rendered a template showing the
     status message, for example.
-    
+
       >>> fakePublish(request, 302)
       >>> messages = status.show()
       >>> len(messages)
@@ -286,7 +286,7 @@ def test_301():
 
     Let's now fake redirection. The message should still be there, but will
     then be expired.
-    
+
       >>> fakePublish(request, 200)
       >>> messages = status.show()
       >>> len(messages)
@@ -297,9 +297,9 @@ def test_301():
 
       >>> messages[0].type
       u'info'
-    
+
     The message should now be gone.
-      
+
       >>> len(status.show())
       0
 

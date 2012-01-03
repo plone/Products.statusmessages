@@ -25,7 +25,7 @@ class Message:
       >>> from zope.interface.verify import verifyClass
       >>> verifyClass(IMessage, Message)
       True
-    
+
       >>> status = Message(u'this is a test', type=u'info')
       >>> status.message
       u'this is a test'
@@ -71,15 +71,15 @@ class Message:
     def encode(self):
         """
         Encode to a cookie friendly format.
-        
+
         The format consists of a two bytes length header of 11 bits for the
         message length and 5 bits for the type length followed by two values.
         """
         message = _utf8(self.message)[:0x3FF] # we can store 2^11 bytes
         type = _utf8(self.type)[:0x1F]        # we can store 2^5 bytes
         size = (len(message) << 5) + (len(type) & 31) # pack into 16 bits
-        
-        return struct.pack('!H%ds%ds' % (len(message), len(type)), 
+
+        return struct.pack('!H%ds%ds' % (len(message), len(type)),
                            size, message, type)
 
 def decode(value):
