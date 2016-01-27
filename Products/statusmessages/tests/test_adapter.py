@@ -3,313 +3,312 @@
     StatusMessage adapter tests.
 """
 
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 import unittest
 
-def test_directives():
-    """
-    Test status messages
 
-    First some boilerplate.
+class TestAdapter(unittest.TestCase):
 
-      >>> from zope.component.testing import setUp
-      >>> setUp()
+    layer = PLONE_INTEGRATION_TESTING
 
-      >>> import Products.Five
-      >>> import Products.statusmessages
+    def test_directives(self):
+        """
+        Test status messages
 
-      >>> from Products.Five import zcml
-      >>> zcml.load_config('meta.zcml', Products.Five)
-      >>> zcml.load_config('configure.zcml', Products.statusmessages)
+        First some boilerplate.
 
-    Now lets make sure we can actually adapt the request.
+          >>> from zope.component.testing import setUp
+          >>> setUp()
 
-      >>> from Products.statusmessages.interfaces import IStatusMessage
-      >>> status = IStatusMessage(self.app.REQUEST)
-      >>> IStatusMessage.providedBy(status)
-      True
+          >>> import Products.Five
+          >>> import Products.statusmessages
 
-    We also need the request to be annotatable:
+          >>> from Products.Five import zcml
+          >>> zcml.load_config('meta.zcml', Products.Five)
+          >>> zcml.load_config('configure.zcml', Products.statusmessages)
 
-      >>> from zope.interface import directlyProvides
-      >>> from zope.annotation.interfaces import IAttributeAnnotatable
-      >>> directlyProvides(self.app.REQUEST, IAttributeAnnotatable)
+        Now lets make sure we can actually adapt the request.
 
-    The dummy request we have is a bit limited, so we need a simple method
-    to fake a real request/response for the cookie handling. Basically it
-    puts all entries from response.cookies into REQUEST.cookies but shifts
-    the real values into the right place as browsers would do it.
+          >>> from Products.statusmessages.interfaces import IStatusMessage
+          >>> status = IStatusMessage(self.app.REQUEST)
+          >>> IStatusMessage.providedBy(status)
+          True
 
-      >>> def fakePublish(request):
-      ...     cookies = request.response.cookies.copy()
-      ...     new_cookies = {}
-      ...     for key in cookies.keys():
-      ...         new_cookies[key] = cookies[key]['value']
-      ...     request.cookies = new_cookies
-      ...     request.response.cookies = {}
+        We also need the request to be annotatable:
 
-      >>> request = self.app.REQUEST
-      >>> status = IStatusMessage(request)
+          >>> from zope.interface import directlyProvides
+          >>> from zope.annotation.interfaces import IAttributeAnnotatable
+          >>> directlyProvides(self.app.REQUEST, IAttributeAnnotatable)
 
-    Make sure there's no stored message.
+        The dummy request we have is a bit limited, so we need a simple method
+        to fake a real request/response for the cookie handling. Basically it
+        puts all entries from response.cookies into REQUEST.cookies but shifts
+        the real values into the right place as browsers would do it.
 
-      >>> len(status.show())
-      0
+          >>> def fakePublish(request):
+          ...     cookies = request.response.cookies.copy()
+          ...     new_cookies = {}
+          ...     for key in cookies.keys():
+          ...         new_cookies[key] = cookies[key]['value']
+          ...     request.cookies = new_cookies
+          ...     request.response.cookies = {}
 
-    Add one message
+          >>> request = self.app.REQUEST
+          >>> status = IStatusMessage(request)
 
-      >>> status.add(u'test', type=u'info')
+        Make sure there's no stored message.
 
-    Now check the results
+          >>> len(status.show())
+          0
 
-      >>> messages = status.show()
-      >>> len(messages)
-      1
+        Add one message
 
-      >>> messages[0].message
-      u'test'
+          >>> status.add(u'test', type=u'info')
 
-      >>> messages[0].type
-      u'info'
+        Now check the results
 
-    Make sure messages are removed
+          >>> messages = status.show()
+          >>> len(messages)
+          1
 
-      >>> len(status.show())
-      0
+          >>> messages[0].message
+          u'test'
 
-    Since we accessed the message prior to publishing the page, we must
-    ensure that the messages have been removed from the cookies
+          >>> messages[0].type
+          u'info'
 
-      >>> fakePublish(request)
-      >>> len(status.show())
-      0
+        Make sure messages are removed
 
-    Now we repeat the test, only this time we publish the page prior to
-    retrieving the messages
+          >>> len(status.show())
+          0
 
-    Add one message
+        Since we accessed the message prior to publishing the page, we must
+        ensure that the messages have been removed from the cookies
 
-      >>> status.add(u'test', type=u'info')
+          >>> fakePublish(request)
+          >>> len(status.show())
+          0
 
-    Publish the request
+        Now we repeat the test, only this time we publish the page prior to
+        retrieving the messages
 
-      >>> fakePublish(request)
+        Add one message
 
-    Now check the results
+          >>> status.add(u'test', type=u'info')
 
-      >>> messages = status.show()
-      >>> len(messages)
-      1
+        Publish the request
 
-      >>> messages[0].message
-      u'test'
+          >>> fakePublish(request)
 
-      >>> messages[0].type
-      u'info'
+        Now check the results
 
-    Make sure messages are removed
+          >>> messages = status.show()
+          >>> len(messages)
+          1
 
-      >>> len(status.show())
-      0
+          >>> messages[0].message
+          u'test'
 
-    Add two messages (without publishing)
+          >>> messages[0].type
+          u'info'
 
-      >>> status.add(u'test', type=u'info')
-      >>> status.add(u'test1', u'warn')
+        Make sure messages are removed
 
-    And check the results again
+          >>> len(status.show())
+          0
 
-      >>> messages = status.show()
-      >>> len(messages)
-      2
+        Add two messages (without publishing)
 
-      >>> test = messages[1]
+          >>> status.add(u'test', type=u'info')
+          >>> status.add(u'test1', u'warn')
 
-      >>> test.message
-      u'test1'
+        And check the results again
 
-      >>> test.type
-      u'warn'
+          >>> messages = status.show()
+          >>> len(messages)
+          2
 
-    Make sure messages are removed again
+          >>> test = messages[1]
 
-      >>> len(status.show())
-      0
+          >>> test.message
+          u'test1'
 
-    Add two messages (with publishing)
+          >>> test.type
+          u'warn'
 
-      >>> status.add(u'test', type=u'info')
-      >>> fakePublish(request)
-      >>> status.add(u'test1', u'warn')
+        Make sure messages are removed again
 
-    And check the results again
+          >>> len(status.show())
+          0
 
-      >>> fakePublish(request)
-      >>> messages = status.show()
-      >>> len(messages)
-      2
+        Add two messages (with publishing)
 
-      >>> test = messages[1]
+          >>> status.add(u'test', type=u'info')
+          >>> fakePublish(request)
+          >>> status.add(u'test1', u'warn')
 
-      >>> test.message
-      u'test1'
+        And check the results again
 
-      >>> test.type
-      u'warn'
+          >>> fakePublish(request)
+          >>> messages = status.show()
+          >>> len(messages)
+          2
 
-    Make sure messages are removed again
+          >>> test = messages[1]
 
-      >>> len(status.show())
-      0
+          >>> test.message
+          u'test1'
 
-    Add two identical messages
+          >>> test.type
+          u'warn'
 
-      >>> status.add(u'test', type=u'info')
-      >>> status.add(u'test', type=u'info')
+        Make sure messages are removed again
 
-    And check the results again
+          >>> len(status.show())
+          0
 
-      >>> fakePublish(request)
-      >>> messages = status.show()
-      >>> len(messages)
-      1
+        Add two identical messages
 
-      >>> test = messages[0]
+          >>> status.add(u'test', type=u'info')
+          >>> status.add(u'test', type=u'info')
 
-      >>> test.message
-      u'test'
+        And check the results again
 
-      >>> test.type
-      u'info'
+          >>> fakePublish(request)
+          >>> messages = status.show()
+          >>> len(messages)
+          1
 
-    Make sure messages are removed again
+          >>> test = messages[0]
 
-      >>> len(status.show())
-      0
+          >>> test.message
+          u'test'
 
-    Test incredibly long messages:
+          >>> test.type
+          u'info'
 
-      >>> status.add(u'm' * 0x400, type=u't' * 0x20)
+        Make sure messages are removed again
 
-      And check the results again
+          >>> len(status.show())
+          0
 
-      >>> fakePublish(request)
-      >>> messages = status.show()
-      >>> len(messages)
-      1
+        Test incredibly long messages:
 
-      >>> test = messages[0]
+          >>> status.add(u'm' * 0x400, type=u't' * 0x20)
 
-      >>> test.message == u'm' * 0x3FF
-      True
+          And check the results again
 
-      >>> test.type == u't' * 0x1F
-      True
+          >>> fakePublish(request)
+          >>> messages = status.show()
+          >>> len(messages)
+          1
 
-    Messages are stored as base64-ed cookie values, so we must make sure we
-    create proper header values; all ascii characters, and no newlines:
+          >>> test = messages[0]
 
-      >>> status.add(u'test' * 40, type=u'info')
-      >>> cookies = [c['value'] for c in request.response.cookies.values()]
-      >>> cookies = ''.join(cookies)
-      >>> cookies == unicode(cookies).encode('ASCII')
-      True
-      >>> '\\n' in cookies
-      False
+          >>> test.message == u'm' * 0x3FF
+          True
 
-      >>> from zope.component.testing import tearDown
-      >>> tearDown()
-    """
+          >>> test.type == u't' * 0x1F
+          True
 
-def test_301():
-    """
-    Test status messages for 301/302/304 request
+        Messages are stored as base64-ed cookie values, so we must make sure we
+        create proper header values; all ascii characters, and no newlines:
 
-    First some boilerplate.
+          >>> status.add(u'test' * 40, type=u'info')
+          >>> cookies = [c['value'] for c in request.response.cookies.values()]
+          >>> cookies = ''.join(cookies)
+          >>> cookies == unicode(cookies).encode('ASCII')
+          True
+          >>> '\\n' in cookies
+          False
 
-      >>> from zope.component.testing import setUp
-      >>> setUp()
+          >>> from zope.component.testing import tearDown
+          >>> tearDown()
+        """
 
-      >>> import Products.Five
-      >>> import Products.statusmessages
+    def test_301(self):
+        """
+        Test status messages for 301/302/304 request
 
-      >>> from Products.Five import zcml
-      >>> zcml.load_config('meta.zcml', Products.Five)
-      >>> zcml.load_config('configure.zcml', Products.statusmessages)
+        First some boilerplate.
 
-      >>> from zope.interface import directlyProvides
-      >>> from zope.annotation.interfaces import IAttributeAnnotatable
-      >>> directlyProvides(self.app.REQUEST, IAttributeAnnotatable)
+          >>> from zope.component.testing import setUp
+          >>> setUp()
 
-      >>> from Products.statusmessages.interfaces import IStatusMessage
+          >>> import Products.Five
+          >>> import Products.statusmessages
 
-      >>> def fakePublish(request, status=200):
-      ...     cookies = request.response.cookies.copy()
-      ...     new_cookies = {}
-      ...     for key in cookies.keys():
-      ...         new_cookies[key] = cookies[key]['value']
-      ...     request.cookies = new_cookies
-      ...     request.response.cookies = {}
-      ...     request.response.setStatus(status)
+          >>> from Products.Five import zcml
+          >>> zcml.load_config('meta.zcml', Products.Five)
+          >>> zcml.load_config('configure.zcml', Products.statusmessages)
 
-      >>> request = self.app.REQUEST
-      >>> status = IStatusMessage(request)
+          >>> from zope.interface import directlyProvides
+          >>> from zope.annotation.interfaces import IAttributeAnnotatable
+          >>> directlyProvides(self.app.REQUEST, IAttributeAnnotatable)
 
-    Make sure there's no stored message.
+          >>> from Products.statusmessages.interfaces import IStatusMessage
 
-      >>> len(status.show())
-      0
+          >>> def fakePublish(request, status=200):
+          ...     cookies = request.response.cookies.copy()
+          ...     new_cookies = {}
+          ...     for key in cookies.keys():
+          ...         new_cookies[key] = cookies[key]['value']
+          ...     request.cookies = new_cookies
+          ...     request.response.cookies = {}
+          ...     request.response.setStatus(status)
 
-    Add one message
+          >>> request = self.app.REQUEST
+          >>> status = IStatusMessage(request)
 
-      >>> status.add(u'test', type=u'info')
+        Make sure there's no stored message.
 
-    Publish a redirect response that also happened to call show(). This could
-    happen if the redirect (unnecessarily) rendered a template showing the
-    status message, for example.
+          >>> len(status.show())
+          0
 
-      >>> fakePublish(request, 302)
-      >>> messages = status.show()
-      >>> len(messages)
-      1
+        Add one message
 
-      >>> messages[0].message
-      u'test'
+          >>> status.add(u'test', type=u'info')
 
-      >>> messages[0].type
-      u'info'
+        Publish a redirect response that also happened to call show(). This could
+        happen if the redirect (unnecessarily) rendered a template showing the
+        status message, for example.
 
-    Make sure messages are not removed - we really want them to show the
-    next time around, when the redirect has completed.
+          >>> fakePublish(request, 302)
+          >>> messages = status.show()
+          >>> len(messages)
+          1
 
-      >>> len(status.show())
-      1
+          >>> messages[0].message
+          u'test'
 
-    Let's now fake redirection. The message should still be there, but will
-    then be expired.
+          >>> messages[0].type
+          u'info'
 
-      >>> fakePublish(request, 200)
-      >>> messages = status.show()
-      >>> len(messages)
-      1
+        Make sure messages are not removed - we really want them to show the
+        next time around, when the redirect has completed.
 
-      >>> messages[0].message
-      u'test'
+          >>> len(status.show())
+          1
 
-      >>> messages[0].type
-      u'info'
+        Let's now fake redirection. The message should still be there, but will
+        then be expired.
 
-    The message should now be gone.
+          >>> fakePublish(request, 200)
+          >>> messages = status.show()
+          >>> len(messages)
+          1
 
-      >>> len(status.show())
-      0
+          >>> messages[0].message
+          u'test'
 
-      >>> from zope.component.testing import tearDown
-      >>> tearDown()
-    """
+          >>> messages[0].type
+          u'info'
 
-def test_suite():
-    from Testing.ZopeTestCase import ZopeDocTestSuite
-    return ZopeDocTestSuite()
+        The message should now be gone.
 
-if __name__ == '__main__':
-    unittest.main(defaultTest="test_suite")
+          >>> len(status.show())
+          0
+
+          >>> from zope.component.testing import tearDown
+          >>> tearDown()
+        """

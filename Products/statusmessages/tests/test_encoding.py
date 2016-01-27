@@ -1,76 +1,75 @@
+# -*- coding: UTF-8 -*-
 """
     Encoding tests.
 """
 
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 import unittest
 
-def test_encoding():
-    r"""
-    Test message encoding:
 
-      >>> from Products.statusmessages.message import Message
-      >>> from Products.statusmessages.message import decode
+class TestEncoding(unittest.TestCase):
 
-      >>> m = Message(u'spam', u'eggs')
-      >>> m.encode()
-      '\x00\x84spameggs'
+    layer = PLONE_INTEGRATION_TESTING
 
-      >>> decode(m.encode())[0] == m
-      True
+    def test_encoding(self):
+        r"""
+        Test message encoding:
 
-      >>> m = Message(u'spam')
-      >>> m.encode()
-      '\x00\x80spam'
+          >>> from Products.statusmessages.message import Message
+          >>> from Products.statusmessages.message import decode
 
-      >>> decode(m.encode())[0] == m
-      True
-    """
+          >>> m = Message(u'spam', u'eggs')
+          >>> m.encode()
+          '\x00\x84spameggs'
 
-def test_decoding():
-    r"""
-    Test message decoding:
+          >>> decode(m.encode())[0] == m
+          True
 
-      >>> from Products.statusmessages.message import Message
-      >>> from Products.statusmessages.message import decode
+          >>> m = Message(u'spam')
+          >>> m.encode()
+          '\x00\x80spam'
 
-    Craft a wrong value:
+          >>> decode(m.encode())[0] == m
+          True
+        """
 
-      >>> m, rem = decode('\x01\x84spameggs')
-      >>> m.message, m.type
-      (u'spameggs', u'')
+    def test_decoding(self):
+        r"""
+        Test message decoding:
 
-      >>> rem
-      ''
+          >>> from Products.statusmessages.message import Message
+          >>> from Products.statusmessages.message import decode
 
-    Craft another wrong value:
+        Craft a wrong value:
 
-      >>> m, rem = decode('\x00\x24spameggs')
-      >>> m.message, m.type
-      (u's', u'pame')
+          >>> m, rem = decode('\x01\x84spameggs')
+          >>> m.message, m.type
+          (u'spameggs', u'')
 
-      >>> rem
-      'ggs'
+          >>> rem
+          ''
 
-    And another wrong value:
+        Craft another wrong value:
 
-      >>> m, rem = decode('\x00spameggs')
-      >>> m.message, m.type
-      (u'pam', u'eggs')
+          >>> m, rem = decode('\x00\x24spameggs')
+          >>> m.message, m.type
+          (u's', u'pame')
 
-      >>> rem
-      ''
+          >>> rem
+          'ggs'
 
-    And yet another wrong value:
+        And another wrong value:
 
-      >>> m, rem = decode('')
-      >>> m is None, rem is ''
-      (True, True)
-    """
+          >>> m, rem = decode('\x00spameggs')
+          >>> m.message, m.type
+          (u'pam', u'eggs')
 
+          >>> rem
+          ''
 
-def test_suite():
-    from Testing.ZopeTestCase import ZopeDocTestSuite
-    return ZopeDocTestSuite()
+        And yet another wrong value:
 
-if __name__ == '__main__':
-    unittest.main(defaultTest="test_suite")
+          >>> m, rem = decode('')
+          >>> m is None, rem is ''
+          (True, True)
+        """
