@@ -6,21 +6,21 @@ version = '4.0.1'
 setup(
     name='Products.statusmessages',
     version=version,
-    description="statusmessages provides an easy way of handling "
-                "internationalized status messages managed via an "
-                "BrowserRequest adapter storing status messages in "
-                "client-side cookies.",
-    long_description=(open("README.txt").read() + "\n" +
-                      open("CHANGES.txt").read()),
+    description='statusmessages provides an easy way of handling '
+                'internationalized status messages managed via an '
+                'BrowserRequest adapter storing status messages in '
+                'client-side cookies.',
+    long_description=(open('README.txt').read() + '\n' +
+                      open('CHANGES.txt').read()),
     classifiers=[
-        "Framework :: Plone",
-        "Framework :: Plone :: 4.3",
-        "Framework :: Plone :: 5.0",
-        "Framework :: Zope2",
-        "License :: OSI Approved :: BSD License",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 2.6",
-        "Programming Language :: Python :: 2.7",
+        'Framework :: Plone',
+        'Framework :: Plone :: 4.3',
+        'Framework :: Plone :: 5.0',
+        'Framework :: Zope2',
+        'License :: OSI Approved :: BSD License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
     ],
     keywords='Zope CMF Plone status messages i18n',
     author='Hanno Schlichting',
