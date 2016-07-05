@@ -1,6 +1,6 @@
 import struct
 
-from zope.interface import implements
+from zope.interface import implementer
 
 from Products.statusmessages.interfaces import IMessage
 
@@ -16,6 +16,7 @@ def _unicode(value):
     return unicode(value, 'utf-8', 'ignore')
 
 
+@implementer(IMessage)
 class Message:
     """A single status message.
 
@@ -55,7 +56,6 @@ class Message:
       'test'
 
     """
-    implements(IMessage)
 
     def __init__(self, message, type=''):
         self.message = message

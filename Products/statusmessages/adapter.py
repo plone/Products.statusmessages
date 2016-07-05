@@ -2,7 +2,7 @@ import binascii
 
 from zope.annotation.interfaces import IAnnotations
 from zope.i18n import translate
-from zope.interface import implements
+from zope.interface import implementer
 
 from Products.statusmessages import STATUSMESSAGEKEY
 from Products.statusmessages.message import decode
@@ -12,6 +12,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 import logging
 logger = logging.getLogger('statusmessages')
 
+@implementer(IStatusMessage)
 class StatusMessage(object):
     """Adapter for the BrowserRequest to handle status messages.
 
@@ -22,7 +23,6 @@ class StatusMessage(object):
       >>> verifyClass(IStatusMessage, StatusMessage)
       True
     """
-    implements(IStatusMessage)
 
     def __init__(self, context):
         self.context = context # the context must be the request
