@@ -10,8 +10,8 @@ setup(
                 'internationalized status messages managed via an '
                 'BrowserRequest adapter storing status messages in '
                 'client-side cookies.',
-    long_description=(open('README.txt').read() + '\n' +
-                      open('CHANGES.txt').read()),
+    long_description=(open('README.rst').read() + '\n' +
+                      open('CHANGES.rst').read()),
     classifiers=[
         'Framework :: Plone',
         'Framework :: Plone :: 4.3',
