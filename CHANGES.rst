@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix deprecated import in test.
+  [pbauer]
 
 
 4.1.1 (2016-08-11)

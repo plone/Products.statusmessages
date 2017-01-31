@@ -23,7 +23,7 @@ class TestAdapter(unittest.TestCase):
           >>> import Products.Five
           >>> import Products.statusmessages
 
-          >>> from Products.Five import zcml
+          >>> from Zope2.App import zcml
           >>> zcml.load_config('meta.zcml', Products.Five)
           >>> zcml.load_config('configure.zcml', Products.statusmessages)
 
@@ -238,7 +238,7 @@ class TestAdapter(unittest.TestCase):
           >>> import Products.Five
           >>> import Products.statusmessages
 
-          >>> from Products.Five import zcml
+          >>> from Zope2.App import zcml
           >>> zcml.load_config('meta.zcml', Products.Five)
           >>> zcml.load_config('configure.zcml', Products.statusmessages)
 
