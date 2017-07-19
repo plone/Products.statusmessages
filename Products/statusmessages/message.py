@@ -53,8 +53,8 @@ class Message:
       >>> status.message.default == 'Default text'
       True
 
-      >>> status.message.domain
-      'test'
+      >>> status.message.domain == u'test'
+      True
 
     """
 
