@@ -3,13 +3,10 @@
     Encoding tests.
 """
 
-from plone.app.testing import PLONE_INTEGRATION_TESTING
 import unittest
 
 
 class TestEncoding(unittest.TestCase):
-
-    layer = PLONE_INTEGRATION_TESTING
 
     def test_encoding(self):
         r"""

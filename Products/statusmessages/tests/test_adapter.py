@@ -3,13 +3,10 @@
     StatusMessage adapter tests.
 """
 
-from plone.app.testing import PLONE_INTEGRATION_TESTING
 import unittest
 
 
 class TestAdapter(unittest.TestCase):
-
-    layer = PLONE_INTEGRATION_TESTING
 
     def test_directives(self):
         """
