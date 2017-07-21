@@ -1,3 +1,9 @@
 *.egg-info
-*.pyc
-*.pyo
+*.py[co]
+.installed.cfg
+/bin
+/parts
+/develop-eggs
+/include
+/lib*
+pip-selfcheck.json

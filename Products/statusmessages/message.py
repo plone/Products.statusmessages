@@ -1,8 +1,8 @@
-import struct
-
+from __future__ import unicode_literals
+from Products.statusmessages.interfaces import IMessage
 from zope.interface import implementer
 
-from Products.statusmessages.interfaces import IMessage
+import struct
 
 
 def _utf8(value):
@@ -11,6 +11,7 @@ def _utf8(value):
     elif isinstance(value, str):
         return value
     return ''
+
 
 def _unicode(value):
     return unicode(value, 'utf-8', 'ignore')
@@ -28,11 +29,11 @@ class Message:
       True
 
       >>> status = Message(u'this is a test', type=u'info')
-      >>> status.message
-      u'this is a test'
+      >>> status.message == 'this is a test'
+      True
 
-      >>> status.type
-      u'info'
+      >>> status.type == 'info'
+      True
 
     It is quite common to use MessageID's as status messages:
 
@@ -43,17 +44,17 @@ class Message:
       >>> msg = msg_factory(u'test_message', default=u'Default text')
 
       >>> status = Message(msg, type=u'warn')
-      >>> status.type
-      u'warn'
+      >>> status.type == 'warn'
+      True
 
       >>> type(status.message) is I18NMessage
       True
 
-      >>> status.message.default
-      u'Default text'
+      >>> status.message.default == 'Default text'
+      True
 
-      >>> status.message.domain
-      'test'
+      >>> status.message.domain == u'test'
+      True
 
     """
 
