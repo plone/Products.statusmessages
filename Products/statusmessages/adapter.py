@@ -1,16 +1,18 @@
-import binascii
-
+# -*- coding: utf-8 -*-
+from Products.statusmessages import STATUSMESSAGEKEY
+from Products.statusmessages.interfaces import IStatusMessage
+from Products.statusmessages.message import decode
+from Products.statusmessages.message import Message
 from zope.annotation.interfaces import IAnnotations
 from zope.i18n import translate
 from zope.interface import implementer
 
-from Products.statusmessages import STATUSMESSAGEKEY
-from Products.statusmessages.message import decode
-from Products.statusmessages.message import Message
-from Products.statusmessages.interfaces import IStatusMessage
-
+import binascii
 import logging
+
+
 logger = logging.getLogger('statusmessages')
+
 
 @implementer(IStatusMessage)
 class StatusMessage(object):
@@ -25,7 +27,7 @@ class StatusMessage(object):
     """
 
     def __init__(self, context):
-        self.context = context # the context must be the request
+        self.context = context  # the context must be the request
 
     def add(self, text, type=u'info'):
         """Add a status message.
@@ -34,8 +36,10 @@ class StatusMessage(object):
         text = translate(text, context=context)
         annotations = IAnnotations(context)
 
-        old = annotations.get(STATUSMESSAGEKEY,
-                              context.cookies.get(STATUSMESSAGEKEY))
+        old = annotations.get(
+            STATUSMESSAGEKEY,
+            context.cookies.get(STATUSMESSAGEKEY),
+        )
         value = _encodeCookieValue(text, type, old=old)
         context.response.setCookie(STATUSMESSAGEKEY, value, path='/')
         annotations[STATUSMESSAGEKEY] = value
@@ -45,8 +49,10 @@ class StatusMessage(object):
         """
         context = self.context
         annotations = IAnnotations(context)
-        value = annotations.get(STATUSMESSAGEKEY,
-                                context.cookies.get(STATUSMESSAGEKEY))
+        value = annotations.get(
+            STATUSMESSAGEKEY,
+            context.cookies.get(STATUSMESSAGEKEY),
+        )
         if value is None:
             return []
         value = _decodeCookieValue(value)
@@ -77,11 +83,12 @@ def _encodeCookieValue(text, type, old=None):
 
     if old is not None:
         results = _decodeCookieValue(old)
-    if not message in results:
+    if message not in results:
         results.append(message)
 
     messages = ''.join([r.encode() for r in results])
     return binascii.b2a_base64(messages).rstrip()
+
 
 def _decodeCookieValue(string):
     """Decode a cookie value to a list of Messages.
@@ -93,7 +100,7 @@ def _decodeCookieValue(string):
     # Try to decode the cookie value
     try:
         value = binascii.a2b_base64(string)
-        while len(value) > 1: # at least 2 bytes of data
+        while len(value) > 1:  # at least 2 bytes of data
             message, value = decode(value)
             if message is not None:
                 results.append(message)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from setuptools import find_packages
 from setuptools import setup
 
@@ -34,15 +35,15 @@ setup(
     include_package_data=True,
     zip_safe=False,
     extras_require=dict(
-      test=[
-          'zope.component',
-          'Zope2',
-      ]
+        test=[
+            'zope.component',
+            'Zope2',
+        ],
     ),
     install_requires=[
-      'setuptools',
-      'zope.annotation',
-      'zope.i18n',
-      'zope.interface',
+        'setuptools',
+        'zope.annotation',
+        'zope.i18n',
+        'zope.interface',
     ],
 )
