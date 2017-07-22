@@ -1,12 +1,13 @@
 Changelog
 =========
 
-4.1.3 (unreleased)
-------------------
+5.0 (unreleased)
+----------------
 
 Breaking changes:
 
-- *add item here*
+- Remove python 2.6 (and thus Plone 4.3.x) compatibility.
+  [tomgross]
 
 New features:
 
