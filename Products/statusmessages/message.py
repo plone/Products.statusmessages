@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from Products.statusmessages.interfaces import IMessage
 from zope.interface import implementer
@@ -76,12 +77,17 @@ class Message:
         The format consists of a two bytes length header of 11 bits for the
         message length and 5 bits for the type length followed by two values.
         """
-        message = _utf8(self.message)[:0x3FF] # we can store 2^11 bytes
-        type = _utf8(self.type)[:0x1F]        # we can store 2^5 bytes
-        size = (len(message) << 5) + (len(type) & 31) # pack into 16 bits
+        message = _utf8(self.message)[:0x3FF]  # we can store 2^11 bytes
+        type = _utf8(self.type)[:0x1F]         # we can store 2^5 bytes
+        size = (len(message) << 5) + (len(type) & 31)  # pack into 16 bits
 
-        return struct.pack('!H%ds%ds' % (len(message), len(type)),
-                           size, message, type)
+        return struct.pack(
+            '!H{0}s{1}s'.format(len(message), len(type)),
+            size,
+            message,
+            type,
+        )
+
 
 def decode(value):
     """
@@ -95,7 +101,9 @@ def decode(value):
     if len(value) >= 2:
         size = struct.unpack('!H', value[:2])[0]
         msize, tsize = (size >> 5, size & 31)
-        message = Message(_unicode(value[2:msize+2]),
-                          _unicode(value[msize+2:msize+tsize+2]))
+        message = Message(
+            _unicode(value[2:msize+2]),
+            _unicode(value[msize+2:msize+tsize+2]),
+        )
         return message, value[msize+tsize+2:]
     return None, ''

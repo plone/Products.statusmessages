@@ -1,4 +1,7 @@
-from zope.interface import Interface, Attribute
+# -*- coding: utf-8 -*-
+from zope.interface import Attribute
+from zope.interface import Interface
+
 
 class IMessage(Interface):
     """A single status message."""

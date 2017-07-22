@@ -266,9 +266,9 @@ class TestAdapter(unittest.TestCase):
 
           >>> status.add(u'test', type=u'info')
 
-        Publish a redirect response that also happened to call show(). This could
-        happen if the redirect (unnecessarily) rendered a template showing the
-        status message, for example.
+        Publish a redirect response that also happened to call show().
+        This could happen if the redirect (unnecessarily)
+        rendered a template showing the status message, for example.
 
           >>> fakePublish(request, 302)
           >>> messages = status.show()
@@ -287,8 +287,8 @@ class TestAdapter(unittest.TestCase):
           >>> len(status.show())
           1
 
-        Let's now fake redirection. The message should still be there, but will
-        then be expired.
+        Let's now fake redirection. The message should still be there,
+        but will then be expired.
 
           >>> fakePublish(request, 200)
           >>> messages = status.show()
