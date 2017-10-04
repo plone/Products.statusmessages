@@ -14,7 +14,10 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix issue where encoding and decoding of statusmessages into cookie
+  raised exception, because of
+  ``TypeError: Struct() argument 1 must be string, not unicode``
+  [datakurre]
 
 
 5.0 (2017-08-04)
