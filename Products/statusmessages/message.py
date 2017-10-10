@@ -82,7 +82,7 @@ class Message:
         size = (len(message) << 5) + (len(type) & 31)  # pack into 16 bits
 
         return struct.pack(
-            '!H{0}s{1}s'.format(len(message), len(type)),
+            b'!H{0}s{1}s'.format(len(message), len(type)),
             size,
             message,
             type,
@@ -99,7 +99,7 @@ def decode(value):
     We expect at least 2 bytes (size information).
     """
     if len(value) >= 2:
-        size = struct.unpack('!H', value[:2])[0]
+        size = struct.unpack(b'!H', value[:2])[0]
         msize, tsize = (size >> 5, size & 31)
         message = Message(
             _unicode(value[2:msize+2]),
