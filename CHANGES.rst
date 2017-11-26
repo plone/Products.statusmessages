@@ -4,14 +4,6 @@ Changelog
 5.0.1 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Fix issue where encoding and decoding of statusmessages into cookie
