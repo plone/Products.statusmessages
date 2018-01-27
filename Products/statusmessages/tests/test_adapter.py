@@ -1,8 +1,7 @@
 # -*- coding: UTF-8 -*-
-"""
-    StatusMessage adapter tests.
-"""
+""" StatusMessage adapter tests. """
 
+import six
 import unittest
 
 
@@ -214,7 +213,7 @@ class TestAdapter(unittest.TestCase):
           >>> status.add(u'test' * 40, type=u'info')
           >>> cookies = [c['value'] for c in request.response.cookies.values()]
           >>> cookies = ''.join(cookies)
-          >>> cookies == unicode(cookies).encode('ASCII')
+          >>> cookies == six.text_type(cookies).encode('ASCII')
           True
           >>> '\\n' in cookies
           False

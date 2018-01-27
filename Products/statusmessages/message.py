@@ -3,11 +3,12 @@ from __future__ import unicode_literals
 from Products.statusmessages.interfaces import IMessage
 from zope.interface import implementer
 
+import six
 import struct
 
 
 def _utf8(value):
-    if isinstance(value, unicode):
+    if isinstance(value, six.text_type):
         return value.encode('utf-8')
     elif isinstance(value, str):
         return value
@@ -15,7 +16,7 @@ def _utf8(value):
 
 
 def _unicode(value):
-    return unicode(value, 'utf-8', 'ignore')
+    return six.text_type(value, 'utf-8', 'ignore')
 
 
 @implementer(IMessage)
@@ -102,8 +103,8 @@ def decode(value):
         size = struct.unpack(b'!H', value[:2])[0]
         msize, tsize = (size >> 5, size & 31)
         message = Message(
-            _unicode(value[2:msize+2]),
-            _unicode(value[msize+2:msize+tsize+2]),
+            _unicode(value[2:msize + 2]),
+            _unicode(value[msize + 2:msize + tsize + 2]),
         )
-        return message, value[msize+tsize+2:]
+        return message, value[msize + tsize + 2:]
     return None, ''
