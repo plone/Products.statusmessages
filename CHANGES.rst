@@ -10,7 +10,8 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Add Python 2 / 3 compatibility
+  [davilima6]
 
 Bug fixes:
 
@@ -46,6 +47,7 @@ Bug fixes:
 - Update code to follow Plone styleguide.
   [gforcada]
 
+
 4.1.2 (2017-02-12)
 ------------------
 
@@ -63,6 +65,7 @@ Bug fixes:
 - Use zope.interface decorator.
   [gforcada]
 
+
 4.1.0 (2016-05-25)
 ------------------
 
@@ -71,11 +74,13 @@ New features:
 - Convert tests to plone.app.testing.
   [do3cc]
 
+
 4.0 - 2010-07-18
 ----------------
 
 - Use the standard libraries doctest module.
   [hannosch]
+
 
 4.0b1 - 2010-03-01
 ------------------
@@ -86,11 +91,13 @@ New features:
   won't lose the message.
   [optilude]
 
+
 4.0a2 - 2009-12-17
 ------------------
 
 - Changed the default type of a new message from the empty string to info.
   [hannosch]
+
 
 4.0a1 - 2009-12-17
 ------------------
@@ -115,6 +122,7 @@ New features:
 - Declare package and test dependencies.
   [hannosch]
 
+
 3.0.3 - 2007-11-24
 ------------------
 
@@ -122,6 +130,7 @@ New features:
   inject newlines every 76 characters, which makes it easier to strip just the
   last one (slightly faster). This fixes tickets #7323 and #7325.
   [mj]
+
 
 3.0.2 - 2007-11-06
 ------------------
@@ -132,6 +141,7 @@ New features:
   http://dev.plone.org/plone/ticket/6943.
   [hannosch, witsch, mj]
 
+
 3.0.1 - 2007-10-07
 ------------------
 
@@ -139,17 +149,20 @@ New features:
   package as well as the inclusion of the zope.annotation, as we rely on it.
   [hannosch]
 
+
 3.0 - 2007-08-09
 ----------------
 
 - No changes.
   [hannosch]
 
+
 3.0rc1 - 2007-07-10
 -------------------
 
 - Removed useless setup.cfg.
   [hannosch]
+
 
 3.0b2 - 2007-03-23
 ------------------
@@ -163,6 +176,7 @@ New features:
   on the request instead of direct values, so we avoid the possibility of
   sneaking those in via query strings.
   [tomster, hannosch]
+
 
 3.0b1 - 2007-03-05
 ------------------
@@ -179,6 +193,7 @@ New features:
   in Archetypes.
   [hannosch]
 
+
 2.1 - 2006-10-25
 ----------------
 
@@ -187,6 +202,7 @@ New features:
 
 - Fixed deprecation warning for the zcml content directive.
   [hannosch]
+
 
 2.0 - 2006-05-15
 ----------------
@@ -198,6 +214,7 @@ New features:
   are able to identify users and keep them connected to the same ZEO server).
   [hannosch]
 
+
 1.1 - 2006-02-13
 ----------------
 
@@ -206,6 +223,7 @@ New features:
 
 - Fixed serious memory leak and did some code improvements.
   [hannosch, alecm]
+
 
 1.0 - 2006-01-26
 ----------------
