@@ -4,18 +4,10 @@ Changelog
 5.0.2 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Add Python 2 / 3 compatibility
   [davilima6]
-
-Bug fixes:
-
-- *add item here*
 
 
 5.0.1 (2017-11-26)
