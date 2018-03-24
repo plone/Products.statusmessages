@@ -9,6 +9,7 @@ from zope.interface import implementer
 
 import binascii
 import logging
+import six
 
 
 logger = logging.getLogger('statusmessages')
@@ -86,7 +87,7 @@ def _encodeCookieValue(text, type, old=None):
     if message not in results:
         results.append(message)
 
-    messages = ''.join([r.encode() for r in results])
+    messages = b''.join([r.encode() for r in results])
     return binascii.b2a_base64(messages).rstrip()
 
 

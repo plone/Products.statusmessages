@@ -83,7 +83,7 @@ class Message:
         size = (len(message) << 5) + (len(type) & 31)  # pack into 16 bits
 
         return struct.pack(
-            b'!H{0}s{1}s'.format(len(message), len(type)),
+            '!H{0}s{1}s'.format(len(message), len(type)),
             size,
             message,
             type,
