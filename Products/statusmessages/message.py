@@ -10,7 +10,7 @@ import struct
 def _utf8(value):
     if isinstance(value, six.text_type):
         return value.encode('utf-8')
-    elif isinstance(value, str):
+    elif isinstance(value, six.binary_type):
         return value
     return ''
 
