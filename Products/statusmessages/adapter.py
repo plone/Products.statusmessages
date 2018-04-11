@@ -86,8 +86,10 @@ def _encodeCookieValue(text, type, old=None):
     if message not in results:
         results.append(message)
 
-    messages = ''.join([r.encode() for r in results])
-    return binascii.b2a_base64(messages).rstrip()
+    messages = b''.join([r.encode() for r in results])
+    bin_value = binascii.b2a_base64(messages).rstrip()
+    # remove the stupid b that will lead to values like "b'AYR...'"
+    return bin_value.decode('utf-8')
 
 
 def _decodeCookieValue(string):
