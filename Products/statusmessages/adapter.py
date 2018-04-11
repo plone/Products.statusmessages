@@ -9,7 +9,6 @@ from zope.interface import implementer
 
 import binascii
 import logging
-import six
 
 
 logger = logging.getLogger('statusmessages')
