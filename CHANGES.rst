@@ -1,20 +1,13 @@
 Changelog
 =========
 
-5.0.3 (unreleased)
+5.0.3 (2018-06-21)
 ------------------
-
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
 
 Bug fixes:
 
-- *add item here*
+- Python 3 compatibility fixes.
+  [pbauer]
 
 
 5.0.2 (2018-02-05)
