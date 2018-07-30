@@ -15,16 +15,16 @@ class TestEncoding(unittest.TestCase):
           >>> from Products.statusmessages.message import Message
           >>> from Products.statusmessages.message import decode
 
-          >>> m = Message(u'spam', u'eggs')
+          >>> m = Message(u'späm', u'eggs')
           >>> m.encode()
           '\x00\x84spameggs'
 
           >>> decode(m.encode())[0] == m
           True
 
-          >>> m = Message(u'spam')
+          >>> m = Message(u'späm')
           >>> m.encode()
-          '\x00\x80spam'
+          '\x00\xa0sp\xc3\xa4m'
 
           >>> decode(m.encode())[0] == m
           True
@@ -39,9 +39,9 @@ class TestEncoding(unittest.TestCase):
 
         Craft a wrong value:
 
-          >>> m, rem = decode('\x01\x84spameggs')
+          >>> m, rem = decode('\x00\x84spameggs')
           >>> m.message, m.type
-          (u'spameggs', u'')
+          (u'spämeggs', u'')
 
           >>> rem
           ''

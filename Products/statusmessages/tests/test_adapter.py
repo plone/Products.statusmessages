@@ -1,7 +1,5 @@
 # -*- coding: UTF-8 -*-
 """ StatusMessage adapter tests. """
-
-import six
 import unittest
 
 
@@ -59,7 +57,7 @@ class TestAdapter(unittest.TestCase):
 
         Add one message
 
-          >>> status.add(u'test', type=u'info')
+          >>> status.add(u'täst', type=u'info')
 
         Now check the results
 
@@ -68,7 +66,7 @@ class TestAdapter(unittest.TestCase):
           1
 
           >>> messages[0].message
-          u'test'
+          u'täst'
 
           >>> messages[0].type
           u'info'
@@ -90,7 +88,7 @@ class TestAdapter(unittest.TestCase):
 
         Add one message
 
-          >>> status.add(u'test', type=u'info')
+          >>> status.add(u'täst', type=u'info')
 
         Publish the request
 
@@ -103,7 +101,7 @@ class TestAdapter(unittest.TestCase):
           1
 
           >>> messages[0].message
-          u'test'
+          u'täst'
 
           >>> messages[0].type
           u'info'
@@ -115,8 +113,8 @@ class TestAdapter(unittest.TestCase):
 
         Add two messages (without publishing)
 
-          >>> status.add(u'test', type=u'info')
-          >>> status.add(u'test1', u'warn')
+          >>> status.add(u'täst', type=u'info')
+          >>> status.add(u'täst1', u'warn')
 
         And check the results again
 
@@ -127,7 +125,7 @@ class TestAdapter(unittest.TestCase):
           >>> test = messages[1]
 
           >>> test.message
-          u'test1'
+          u'täst1'
 
           >>> test.type
           u'warn'
@@ -139,7 +137,7 @@ class TestAdapter(unittest.TestCase):
 
         Add two messages (with publishing)
 
-          >>> status.add(u'test', type=u'info')
+          >>> status.add(u'täst', type=u'info')
           >>> fakePublish(request)
           >>> status.add(u'test1', u'warn')
 
@@ -165,8 +163,8 @@ class TestAdapter(unittest.TestCase):
 
         Add two identical messages
 
-          >>> status.add(u'test', type=u'info')
-          >>> status.add(u'test', type=u'info')
+          >>> status.add(u'täst', type=u'info')
+          >>> status.add(u'täst', type=u'info')
 
         And check the results again
 
@@ -178,7 +176,7 @@ class TestAdapter(unittest.TestCase):
           >>> test = messages[0]
 
           >>> test.message
-          u'test'
+          u'täst'
 
           >>> test.type
           u'info'
@@ -210,7 +208,7 @@ class TestAdapter(unittest.TestCase):
         Messages are stored as base64-ed cookie values, so we must make sure we
         create proper header values; all ascii characters, and no newlines:
 
-          >>> status.add(u'test' * 40, type=u'info')
+          >>> status.add(u'täst' * 40, type=u'info')
           >>> cookies = [c['value'] for c in request.response.cookies.values()]
           >>> cookies = ''.join(cookies)
           >>> cookies == six.text_type(cookies).encode('ASCII')
@@ -263,7 +261,7 @@ class TestAdapter(unittest.TestCase):
 
         Add one message
 
-          >>> status.add(u'test', type=u'info')
+          >>> status.add(u'täst', type=u'info')
 
         Publish a redirect response that also happened to call show().
         This could happen if the redirect (unnecessarily)
@@ -275,7 +273,7 @@ class TestAdapter(unittest.TestCase):
           1
 
           >>> messages[0].message
-          u'test'
+          u'täst'
 
           >>> messages[0].type
           u'info'
@@ -295,7 +293,7 @@ class TestAdapter(unittest.TestCase):
           1
 
           >>> messages[0].message
-          u'test'
+          u'täst'
 
           >>> messages[0].type
           u'info'

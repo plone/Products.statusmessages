@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Use Umlaut ä in tests in order to check string/bytes handling.
+  [jensens]
 
 
 5.0.3 (2018-06-21)

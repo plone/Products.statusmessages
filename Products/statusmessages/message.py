@@ -20,7 +20,7 @@ def _unicode(value):
 
 
 @implementer(IMessage)
-class Message:
+class Message(object):
     """A single status message.
 
     Let's make sure that this implementation actually fulfills the
