@@ -15,6 +15,7 @@ New features:
 Bug fixes:
 
 - Use Umlaut ä in tests in order to check string/bytes handling.
+  Refactor test_encoding to unittest.
   [jensens]
 
 
