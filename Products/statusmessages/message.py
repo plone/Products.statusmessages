@@ -80,7 +80,7 @@ class Message(object):
         """
         message = _utf8(self.message)[:0x3FF]  # we can store 2^11 bytes
         type_ = _utf8(self.type)[:0x1F]         # we can store 2^5 bytes
-        size = (len(message) << 5) + (len(type) & 31)  # pack into 16 bits
+        size = (len(message) << 5) + (len(type_) & 31)  # pack into 16 bits
 
         return struct.pack(
             b'!H{0}s{1}s'.format(
