@@ -1,5 +1,8 @@
 # -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
+
 import unittest
+
 
 class TestEncoding(unittest.TestCase):
 
@@ -8,68 +11,67 @@ class TestEncoding(unittest.TestCase):
         """
         from Products.statusmessages.message import Message
         from Products.statusmessages.message import decode
-        m = Message(u'späm', u'eggs')
+        m = Message('späm', 'eggs')
         self.assertEqual(
             m.encode(),
-            '\x00\xa4sp\xc3\xa4meggs'
+            b'\x00\xa4sp\xc3\xa4meggs',
         )
         self.assertEqual(decode(m.encode())[0], m)
 
     def test_encoding_msg_without_type(self):
         from Products.statusmessages.message import Message
         from Products.statusmessages.message import decode
-        m = Message(u'späm')
+        m = Message('späm')
         self.assertEqual(
             m,
-            Message(u'späm'),
+            Message('späm'),
         )
-        self.assertEqual(m.encode(), '\x00\xa0sp\xc3\xa4m')
+        self.assertEqual(m.encode(), b'\x00\xa0sp\xc3\xa4m')
         self.assertEqual(decode(m.encode())[0], m)
 
     def test_decoding(self):
         """Test message decoding:
         """
-        from Products.statusmessages.message import Message
         from Products.statusmessages.message import decode
 
         # Craft a wrong value:
-        m, rem = decode('\x01\x84spameggs')
+        m, rem = decode(b'\x01\x84spameggs')
         self.assertEqual(
             m.message,
-            u'spameggs',
+            'spameggs',
         )
         self.assertEqual(
-          m.type,
-          u'',
+            m.type,
+            '',
         )
-        self.assertEqual(rem, '')
+        self.assertEqual(rem, b'')
 
         # Craft another wrong value:
-        m, rem = decode('\x00\x24spameggs')
+        m, rem = decode(b'\x00\x24spameggs')
         self.assertEqual(
             m.message,
-            u's',
+            's',
         )
         self.assertEqual(
-          m.type,
-          u'pame',
+            m.type,
+            'pame',
         )
-        self.assertEqual(rem, 'ggs')
+        self.assertEqual(rem, b'ggs')
 
         # And another wrong value:
-        m, rem = decode('\x00spameggs')
+        m, rem = decode(b'\x00spameggs')
         self.assertEqual(
             m.message,
-            u'pam',
+            'pam',
         )
         self.assertEqual(
-          m.type,
-          u'eggs',
+            m.type,
+            'eggs',
         )
-        self.assertEqual(rem, '')
+        self.assertEqual(rem, b'')
 
         # And yet another wrong value:
         m, rem = decode('')
 
         self.assertIs(m, None)
-        self.assertEqual(rem , '')
+        self.assertEqual(rem, b'')
