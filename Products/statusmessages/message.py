@@ -12,7 +12,7 @@ def _utf8(value):
         return value.encode('utf-8')
     elif isinstance(value, six.binary_type):
         return value
-    return ''
+    return b''
 
 
 def _unicode(value):
@@ -20,7 +20,7 @@ def _unicode(value):
 
 
 @implementer(IMessage)
-class Message:
+class Message(object):
     """A single status message.
 
     Let's make sure that this implementation actually fulfills the
@@ -78,16 +78,16 @@ class Message:
         The format consists of a two bytes length header of 11 bits for the
         message length and 5 bits for the type length followed by two values.
         """
-        message = _utf8(self.message)[:0x3FF]  # we can store 2^11 bytes
-        type = _utf8(self.type)[:0x1F]         # we can store 2^5 bytes
-        size = (len(message) << 5) + (len(type) & 31)  # pack into 16 bits
 
-        return struct.pack(
-            '!H{0}s{1}s'.format(len(message), len(type)),
-            size,
-            message,
-            type,
-        )
+        if six.PY3:
+            fmt_tpl = '!H{0}s{1}s'
+        else:
+            fmt_tpl = b'!H{0}s{1}s'
+        message = _utf8(self.message)[:0x3FF]  # we can store 2^11 bytes
+        type_ = _utf8(self.type)[:0x1F]  # we can store 2^5 bytes
+        size = (len(message) << 5) + (len(type_) & 31)  # pack into 16 bits
+        fmt = fmt_tpl.format(len(message), len(type_))
+        return struct.pack(fmt, size, message, type_)
 
 
 def decode(value):
@@ -95,7 +95,7 @@ def decode(value):
     Decode messages from a cookie
 
     We return the decoded message object, and the remainder of the cookie
-    value (it can contain further messages).
+    value as bytes (it can contain further messages).
 
     We expect at least 2 bytes (size information).
     """
@@ -107,4 +107,4 @@ def decode(value):
             _unicode(value[msize + 2:msize + tsize + 2]),
         )
         return message, value[msize + tsize + 2:]
-    return None, ''
+    return None, b''

@@ -19,11 +19,11 @@ class StatusMessage(object):
     """Adapter for the BrowserRequest to handle status messages.
 
     Let's make sure that this implementation actually fulfills the
-    'IStatusMessage' API.
+    'IStatusMessage' API::
 
-      >>> from zope.interface.verify import verifyClass
-      >>> verifyClass(IStatusMessage, StatusMessage)
-      True
+        >>> from zope.interface.verify import verifyClass
+        >>> verifyClass(IStatusMessage, StatusMessage)
+        True
     """
 
     def __init__(self, context):
