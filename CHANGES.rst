@@ -4,14 +4,6 @@ Changelog
 5.0.4 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Use Umlaut ä in tests in order to check string/bytes handling.
