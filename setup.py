@@ -28,7 +28,7 @@ setup(
     keywords='Zope CMF Plone status messages i18n',
     author='Hanno Schlichting',
     author_email='plone-developers@lists.sourceforge.net',
-    url='https://pypi.python.org/pypi/Products.statusmessages',
+    url='https://pypi.org/project/Products.statusmessages',
     license='BSD',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['Products'],
