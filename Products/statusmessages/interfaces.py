@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from zope.interface import Attribute
 from zope.interface import Interface
 
@@ -14,10 +13,10 @@ class IMessage(Interface):
 class IStatusMessage(Interface):
     """An adapter for the BrowserRequest to handle status messages."""
 
-    def addStatusMessage(text, type=u'info'):
+    def addStatusMessage(text, type='info'):
         """Add a status message."""
 
-    def add(text, type=u'info'):
+    def add(text, type='info'):
         """Add a status message."""
 
     def showStatusMessages():

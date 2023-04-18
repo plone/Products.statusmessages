@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from doctest import DocTestSuite
 from unittest import TestSuite
 

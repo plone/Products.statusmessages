@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from Products.statusmessages import STATUSMESSAGEKEY
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.statusmessages.message import decode
@@ -15,7 +14,7 @@ logger = logging.getLogger('statusmessages')
 
 
 @implementer(IStatusMessage)
-class StatusMessage(object):
+class StatusMessage:
     """Adapter for the BrowserRequest to handle status messages.
 
     Let's make sure that this implementation actually fulfills the
@@ -29,7 +28,7 @@ class StatusMessage(object):
     def __init__(self, context):
         self.context = context  # the context must be the request
 
-    def add(self, text, type=u'info'):
+    def add(self, text, type='info'):
         """Add a status message.
         """
         context = self.context

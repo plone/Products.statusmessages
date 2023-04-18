@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 """ StatusMessage adapter tests. """
 import unittest
 
