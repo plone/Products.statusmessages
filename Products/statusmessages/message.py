@@ -1,7 +1,6 @@
 from Products.statusmessages.interfaces import IMessage
 from zope.interface import implementer
 
-import six
 import struct
 
 

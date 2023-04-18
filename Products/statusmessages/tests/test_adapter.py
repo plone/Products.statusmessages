@@ -209,7 +209,7 @@ class TestAdapter(unittest.TestCase):
           >>> status.add(u'täst' * 40, type=u'info')
           >>> cookies = [c['value'] for c in request.response.cookies.values()]
           >>> cookies = ''.join(cookies)
-          >>> cookies == six.text_type(cookies).encode('ASCII')
+          >>> cookies == str(cookies).encode('ASCII')
           True
           >>> '\\n' in cookies
           False
