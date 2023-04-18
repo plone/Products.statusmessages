@@ -38,8 +38,7 @@ setup(
     python_requires=">=3.8",
     extras_require=dict(
         test=[
-            "zope.component",
-            "Zope2",
+            "Zope",
         ],
     ),
     install_requires=[
@@ -47,5 +46,6 @@ setup(
         "zope.annotation",
         "zope.i18n",
         "zope.interface",
+        "zope.publisher",
     ],
 )
