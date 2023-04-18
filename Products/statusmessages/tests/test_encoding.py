@@ -6,8 +6,8 @@ class TestEncoding(unittest.TestCase):
     def test_encoding_msg_with_type(self):
         """Test message encoding:
         """
-        from Products.statusmessages.message import Message
         from Products.statusmessages.message import decode
+        from Products.statusmessages.message import Message
         m = Message('späm', 'eggs')
         self.assertEqual(
             m.encode(),
@@ -16,8 +16,8 @@ class TestEncoding(unittest.TestCase):
         self.assertEqual(decode(m.encode())[0], m)
 
     def test_encoding_msg_without_type(self):
-        from Products.statusmessages.message import Message
         from Products.statusmessages.message import decode
+        from Products.statusmessages.message import Message
         m = Message('späm')
         self.assertEqual(
             m,
