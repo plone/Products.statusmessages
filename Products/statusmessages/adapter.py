@@ -10,7 +10,7 @@ import binascii
 import logging
 
 
-logger = logging.getLogger('statusmessages')
+logger = logging.getLogger("statusmessages")
 
 
 @implementer(IStatusMessage)
@@ -28,9 +28,8 @@ class StatusMessage:
     def __init__(self, context):
         self.context = context  # the context must be the request
 
-    def add(self, text, type='info'):
-        """Add a status message.
-        """
+    def add(self, text, type="info"):
+        """Add a status message."""
         context = self.context
         text = translate(text, context=context)
         annotations = IAnnotations(context)
@@ -40,12 +39,11 @@ class StatusMessage:
             context.cookies.get(STATUSMESSAGEKEY),
         )
         value = _encodeCookieValue(text, type, old=old)
-        context.response.setCookie(STATUSMESSAGEKEY, value, path='/')
+        context.response.setCookie(STATUSMESSAGEKEY, value, path="/")
         annotations[STATUSMESSAGEKEY] = value
 
     def show(self):
-        """Removes all status messages and returns them for display.
-        """
+        """Removes all status messages and returns them for display."""
         context = self.context
         annotations = IAnnotations(context)
         value = annotations.get(
@@ -62,7 +60,7 @@ class StatusMessage:
         # are sloppy).
         if self.context.response.getStatus() not in (301, 302, 304):
             context.cookies[STATUSMESSAGEKEY] = None
-            context.response.expireCookie(STATUSMESSAGEKEY, path='/')
+            context.response.expireCookie(STATUSMESSAGEKEY, path="/")
             annotations[STATUSMESSAGEKEY] = None
 
         return value
@@ -74,8 +72,8 @@ class StatusMessage:
 
 def _encodeCookieValue(text, type, old=None):
     """Encodes text and type to a list of Messages. If there is already some old
-       existing list, add the new Message at the end but don't add duplicate
-       messages.
+    existing list, add the new Message at the end but don't add duplicate
+    messages.
     """
     results = []
     message = Message(text, type=type)
@@ -85,18 +83,17 @@ def _encodeCookieValue(text, type, old=None):
     if message not in results:
         results.append(message)
 
-    messages = b''.join([r.encode() for r in results])
+    messages = b"".join([r.encode() for r in results])
     bin_value = binascii.b2a_base64(messages).rstrip()
     # remove the stupid b that will lead to values like "b'AYR...'"
-    return bin_value.decode('utf-8')
+    return bin_value.decode("utf-8")
 
 
 def _decodeCookieValue(string):
-    """Decode a cookie value to a list of Messages.
-    """
+    """Decode a cookie value to a list of Messages."""
     results = []
     # Return nothing if the cookie is marked as deleted
-    if string == 'deleted':
+    if string == "deleted":
         return results
     # Try to decode the cookie value
     try:
@@ -106,7 +103,7 @@ def _decodeCookieValue(string):
             if message is not None:
                 results.append(message)
     except (binascii.Error, UnicodeEncodeError):
-        logger.exception('Unexpected value in statusmessages cookie')
+        logger.exception("Unexpected value in statusmessages cookie")
         return []
 
     return results

@@ -3,7 +3,6 @@ import unittest
 
 
 class TestAdapter(unittest.TestCase):
-
     def test_directives(self):
         """
         Test status messages

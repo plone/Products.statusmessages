@@ -7,14 +7,14 @@ import struct
 
 def _utf8(value):
     if isinstance(value, str):
-        return value.encode('utf-8')
+        return value.encode("utf-8")
     elif isinstance(value, bytes):
         return value
-    return b''
+    return b""
 
 
 def _unicode(value):
-    return str(value, 'utf-8', 'ignore')
+    return str(value, "utf-8", "ignore")
 
 
 @implementer(IMessage)
@@ -58,7 +58,7 @@ class Message:
 
     """
 
-    def __init__(self, message, type=''):
+    def __init__(self, message, type=""):
         self.message = message
         self.type = type
 
@@ -77,7 +77,7 @@ class Message:
         message length and 5 bits for the type length followed by two values.
         """
 
-        fmt_tpl = '!H{0}s{1}s'
+        fmt_tpl = "!H{0}s{1}s"
         message = _utf8(self.message)[:0x3FF]  # we can store 2^11 bytes
         type_ = _utf8(self.type)[:0x1F]  # we can store 2^5 bytes
         size = (len(message) << 5) + (len(type_) & 31)  # pack into 16 bits
@@ -95,11 +95,11 @@ def decode(value):
     We expect at least 2 bytes (size information).
     """
     if len(value) >= 2:
-        size = struct.unpack(b'!H', value[:2])[0]
+        size = struct.unpack(b"!H", value[:2])[0]
         msize, tsize = (size >> 5, size & 31)
         message = Message(
-            _unicode(value[2:msize + 2]),
-            _unicode(value[msize + 2:msize + tsize + 2]),
+            _unicode(value[2 : msize + 2]),
+            _unicode(value[msize + 2 : msize + tsize + 2]),
         )
-        return message, value[msize + tsize + 2:]
-    return None, b''
+        return message, value[msize + tsize + 2 :]
+    return None, b""

@@ -1,1 +1,1 @@
-STATUSMESSAGEKEY = 'statusmessages'
+STATUSMESSAGEKEY = "statusmessages"
