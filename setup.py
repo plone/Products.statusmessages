@@ -35,6 +35,7 @@ setup(
     namespace_packages=["Products"],
     include_package_data=True,
     zip_safe=False,
+    python_requires=">=3.8",
     extras_require=dict(
         test=[
             "zope.component",
