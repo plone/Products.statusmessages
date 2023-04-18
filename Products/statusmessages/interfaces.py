@@ -5,7 +5,7 @@ from zope.interface import Interface
 class IMessage(Interface):
     """A single status message."""
 
-    message = Attribute("The text of this message. Usally a Message object.")
+    message = Attribute("The text of this message. Usually a Message object.")
 
     type = Attribute("The type of this message.")
 
