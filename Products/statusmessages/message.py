@@ -1,26 +1,23 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from Products.statusmessages.interfaces import IMessage
 from zope.interface import implementer
 
-import six
 import struct
 
 
 def _utf8(value):
-    if isinstance(value, six.text_type):
-        return value.encode('utf-8')
-    elif isinstance(value, six.binary_type):
+    if isinstance(value, str):
+        return value.encode("utf-8")
+    elif isinstance(value, bytes):
         return value
-    return b''
+    return b""
 
 
 def _unicode(value):
-    return six.text_type(value, 'utf-8', 'ignore')
+    return str(value, "utf-8", "ignore")
 
 
 @implementer(IMessage)
-class Message(object):
+class Message:
     """A single status message.
 
     Let's make sure that this implementation actually fulfills the
@@ -60,7 +57,7 @@ class Message(object):
 
     """
 
-    def __init__(self, message, type=''):
+    def __init__(self, message, type=""):
         self.message = message
         self.type = type
 
@@ -79,10 +76,7 @@ class Message(object):
         message length and 5 bits for the type length followed by two values.
         """
 
-        if six.PY3:
-            fmt_tpl = '!H{0}s{1}s'
-        else:
-            fmt_tpl = b'!H{0}s{1}s'
+        fmt_tpl = "!H{0}s{1}s"
         message = _utf8(self.message)[:0x3FF]  # we can store 2^11 bytes
         type_ = _utf8(self.type)[:0x1F]  # we can store 2^5 bytes
         size = (len(message) << 5) + (len(type_) & 31)  # pack into 16 bits
@@ -100,11 +94,11 @@ def decode(value):
     We expect at least 2 bytes (size information).
     """
     if len(value) >= 2:
-        size = struct.unpack(b'!H', value[:2])[0]
+        size = struct.unpack(b"!H", value[:2])[0]
         msize, tsize = (size >> 5, size & 31)
         message = Message(
-            _unicode(value[2:msize + 2]),
-            _unicode(value[msize + 2:msize + tsize + 2]),
+            _unicode(value[2 : msize + 2]),
+            _unicode(value[msize + 2 : msize + tsize + 2]),
         )
-        return message, value[msize + tsize + 2:]
-    return None, b''
+        return message, value[msize + tsize + 2 :]
+    return None, b""

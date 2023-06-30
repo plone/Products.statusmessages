@@ -1,10 +1,8 @@
-# -*- coding: UTF-8 -*-
 """ StatusMessage adapter tests. """
 import unittest
 
 
 class TestAdapter(unittest.TestCase):
-
     def test_directives(self):
         """
         Test status messages
@@ -211,7 +209,7 @@ class TestAdapter(unittest.TestCase):
           >>> status.add(u'täst' * 40, type=u'info')
           >>> cookies = [c['value'] for c in request.response.cookies.values()]
           >>> cookies = ''.join(cookies)
-          >>> cookies == six.text_type(cookies).encode('ASCII')
+          >>> cookies == str(cookies).encode('ASCII')
           True
           >>> '\\n' in cookies
           False

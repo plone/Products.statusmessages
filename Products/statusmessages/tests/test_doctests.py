@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 from doctest import DocTestSuite
 from unittest import TestSuite
 
 
 test_list = (
-    DocTestSuite('Products.statusmessages.adapter'),
-    DocTestSuite('Products.statusmessages.message'),
+    DocTestSuite("Products.statusmessages.adapter"),
+    DocTestSuite("Products.statusmessages.message"),
 )
 
 

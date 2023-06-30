@@ -1,14 +1,16 @@
-<configure xmlns="http://namespaces.zope.org/zope"
-    xmlns:zcml="http://namespaces.zope.org/zcml">
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    >
 
   <adapter
-      for="zope.publisher.interfaces.browser.IBrowserRequest"
-      provides=".interfaces.IStatusMessage"
       factory=".adapter.StatusMessage"
+      provides=".interfaces.IStatusMessage"
+      for="zope.publisher.interfaces.browser.IBrowserRequest"
       />
 
   <class class=".message.Message">
-      <allow interface=".interfaces.IMessage" />
+    <allow interface=".interfaces.IMessage" />
   </class>
 
   <!-- We need to make the request annotatable for this to work -->
