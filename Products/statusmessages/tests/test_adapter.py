@@ -1,4 +1,5 @@
 """ StatusMessage adapter tests. """
+
 import unittest
 
 
