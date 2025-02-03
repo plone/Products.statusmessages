@@ -1,4 +1,4 @@
-""" StatusMessage adapter tests. """
+"""StatusMessage adapter tests."""
 
 import unittest
 
