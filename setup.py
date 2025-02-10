@@ -44,16 +44,11 @@ setup(
     include_package_data=True,
     zip_safe=False,
     python_requires=">=3.8",
-    extras_require=dict(
-        test=[
-            "Zope",
-        ],
-    ),
+    extras_require={
+        "test": [],
+    },
     install_requires=[
         "setuptools",
-        "zope.annotation",
-        "zope.i18n",
-        "zope.interface",
-        "zope.publisher",
+        "Zope",  # workaround for https://github.com/reinout/z3c.dependencychecker/issues/144
     ],
 )
