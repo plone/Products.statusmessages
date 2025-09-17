@@ -3,7 +3,7 @@ include requirements.txt
 include buildout.cfg
 
 recursive-include docs *
-recursive-include Products *
+recursive-include src *
 
 global-exclude *pyc
 include pyproject.toml
