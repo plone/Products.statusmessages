@@ -13,7 +13,7 @@ ignore =
     # black takes care of spaces after commas
     E231,
 per-file-ignores =
-    src/Products/statusmessages/tests/test_adapter.py:F821
+    Products/statusmessages/tests/test_adapter.py:F821
 
 ##
 # Add extra configuration options in .meta.toml:
