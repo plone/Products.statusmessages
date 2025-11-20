@@ -3,10 +3,13 @@
 # See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "2.0.1.dev0"
+commit-id = "2.2.3.dev0"
+
+[tox]
+test_matrix = {"6.2" = ["*"]}
 
 [flake8]
 extra_lines = """
 per-file-ignores =
-    Products/statusmessages/tests/test_adapter.py:F821
+    src/Products/statusmessages/tests/test_adapter.py:F821
 """
